@@ -1,0 +1,37 @@
+{
+  "name": "pondermatic/strategy11-challenge",
+  "description": "Adds a WordPress endpoint to return data from a Strategy11 challenge API.",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "James Richards",
+      "email": "jamesdev@happycorner.us"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "includes/"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/phpunit/"
+    ],
+    "psr-4": {
+      "PHPUnit\\": "vendor/phpunit/phpunit/src/"
+    }
+  },
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "pondermatic/composer-archive-project": "^1.0.0",
+    "phpunit/phpunit": "^9.5"
+  },
+  "config": {
+    "allow-plugins": {
+      "pondermatic/composer-archive-project": true
+    }
+  }
+}
