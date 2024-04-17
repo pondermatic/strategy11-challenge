@@ -33,6 +33,9 @@ class Core {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
+        if ( !is_admin() ) {
+            new Shortcode();
+        }
         self::$challenge_api = new Challenge_API();
 	}
 }
