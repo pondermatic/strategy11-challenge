@@ -3,6 +3,7 @@
  * CLI_Clear_Last_Call class definition.
  *
  * @since 1.0.0
+ * @version 1.0.0
  */
 
 namespace Pondermatic\Strategy11\Challenge;
