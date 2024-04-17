@@ -43,6 +43,19 @@ class Challenge_API {
 	}
 
 	/**
+	 * Deletes the cached remote challenge response.
+	 *
+	 * @since 1.0.0
+	 * @return bool True on success or not cached, false on failure.
+	 */
+	public function clear_cached_response(): bool {
+		if ( get_site_transient( Core::ROUTE_NAMESPACE . self::ROUTE ) === false ) {
+			return true;
+		}
+		return delete_site_transient( Core::ROUTE_NAMESPACE . self::ROUTE );
+	}
+
+	/**
 	 * Returns data from a request to the Strategy11 challenge API.
 	 *
 	 * @since 1.0.0
