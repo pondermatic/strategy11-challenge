@@ -48,15 +48,10 @@ class Challenge_API {
 	 * @since 1.0.0
 	 */
 	public function get_challenge_response_body(): WP_Error|stdClass {
-		$cached_value = get_option( Core::ROUTE_NAMESPACE . self::ROUTE );
+		$cached_value = get_site_transient( Core::ROUTE_NAMESPACE . self::ROUTE );
 		if ( $cached_value !== false ) {
 			$cached_value = json_decode( $cached_value );
-			if (
-				json_last_error() === JSON_ERROR_NONE &&
-				$cached_value->time + $this->cache_duration > time()
-			) {
-				return $cached_value->response;
-			}
+			return $cached_value->response;
 		}
 
 		/* @noinspection HttpUrlsUsage */
@@ -70,7 +65,11 @@ class Challenge_API {
 			$cached_value           = new stdClass();
 			$cached_value->response = $challenge_response;
 			$cached_value->time     = time();
-			update_option( Core::ROUTE_NAMESPACE . self::ROUTE, wp_json_encode( $cached_value ) );
+			set_site_transient(
+				Core::ROUTE_NAMESPACE . self::ROUTE,
+				wp_json_encode( $cached_value ),
+				HOUR_IN_SECONDS
+			);
 			return $challenge_response;
 		} else {
 			return new WP_Error( $json_error, json_last_error_msg() );
