@@ -23,14 +23,6 @@ class Challenge_API {
 	const ROUTE = '/challenge';
 
 	/**
-	 * The number of seconds that a cached response is valid.
-	 *
-	 * @since 1.0.0
-	 * @var int
-	 */
-	protected int $cache_duration = 60 * 60;
-
-	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
