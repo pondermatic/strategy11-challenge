@@ -2,7 +2,7 @@
 /**
  * The core class for this plugin.
  *
- * @since 1.0.0
+ * @since   1.0.0
  * @version 1.0.0
  */
 
@@ -14,6 +14,8 @@ namespace Pondermatic\Strategy11\Challenge;
  * @since 1.0.0
  */
 class Core {
+
+    const VERSION = '1.0.0';
 
 	/**
 	 * Constructor.
