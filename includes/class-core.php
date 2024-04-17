@@ -37,5 +37,8 @@ class Core {
 			new Shortcode();
 		}
 		self::$challenge_api = new Challenge_API();
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			new CLI_Clear_Cached_Response();
+		}
 	}
 }

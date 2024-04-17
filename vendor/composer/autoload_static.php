@@ -8,7 +8,7 @@ class ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd
 {
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Pondermatic\\Strategy11\\Challenge\\CLI_Clear_Last_Call' => __DIR__ . '/../..' . '/includes/class-cli-clear-last-call.php',
+        'Pondermatic\\Strategy11\\Challenge\\CLI_Clear_Cached_Response' => __DIR__ . '/../..' . '/includes/class-cli-clear-cached-response.php',
         'Pondermatic\\Strategy11\\Challenge\\Challenge_API' => __DIR__ . '/../..' . '/includes/class-challenge-api.php',
         'Pondermatic\\Strategy11\\Challenge\\Core' => __DIR__ . '/../..' . '/includes/class-core.php',
         'Pondermatic\\Strategy11\\Challenge\\Shortcode' => __DIR__ . '/../..' . '/includes/class-shortcode.php',

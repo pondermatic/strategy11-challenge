@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Pondermatic\\Strategy11\\Challenge\\CLI_Clear_Last_Call' => $baseDir . '/includes/class-cli-clear-last-call.php',
+    'Pondermatic\\Strategy11\\Challenge\\CLI_Clear_Cached_Response' => $baseDir . '/includes/class-cli-clear-cached-response.php',
     'Pondermatic\\Strategy11\\Challenge\\Challenge_API' => $baseDir . '/includes/class-challenge-api.php',
     'Pondermatic\\Strategy11\\Challenge\\Core' => $baseDir . '/includes/class-core.php',
     'Pondermatic\\Strategy11\\Challenge\\Shortcode' => $baseDir . '/includes/class-shortcode.php',
