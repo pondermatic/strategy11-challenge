@@ -70,7 +70,7 @@ class Challenge_API {
 			$cached_value           = new stdClass();
 			$cached_value->response = $challenge_response;
 			$cached_value->time     = time();
-			add_option( Core::ROUTE_NAMESPACE . self::ROUTE, wp_json_encode( $cached_value ) );
+			update_option( Core::ROUTE_NAMESPACE . self::ROUTE, wp_json_encode( $cached_value ) );
 			return $challenge_response;
 		} else {
 			return new WP_Error( $json_error, json_last_error_msg() );
