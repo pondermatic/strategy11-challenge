@@ -8,6 +8,8 @@
 
 namespace Pondermatic\Strategy11\Challenge;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Core class definition.
  *
