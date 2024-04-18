@@ -44,10 +44,10 @@ class Shortcode {
 	}
 
 	/**
-	 * Initialize properties.
+	 * Get ready to render the shortcode.
 	 *
 	 * This must be called after the global $post is set
-	 * and before shortcode is handled.
+	 * and before the shortcode is handled.
 	 *
 	 * @since 1.0.0
 	 */
