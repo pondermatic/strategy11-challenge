@@ -33,18 +33,20 @@ class View_Data {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts(): void {
+		$assets_dir = plugin_dir_url( __DIR__ ) . 'assets/';
 		wp_enqueue_script(
-			'psc-shortcode',
-			plugin_dir_url( __DIR__ ) . 'assets/js/psc-shortcode.js',
-			[
+			handle: 'psc-shortcode',
+			src: "$assets_dir/js/psc-shortcode.js",
+			deps: [
 				'jquery',
 				'wp-api',
 			],
-			Core::VERSION,
-			[
+			ver: Core::VERSION,
+			args: [
 				'in_footer' => false,
 			]
 		);
+		wp_enqueue_style( handle: 'psc', src: "$assets_dir/css/psc.css", ver: Core::VERSION );
 	}
 
 	/**
