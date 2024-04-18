@@ -18,7 +18,12 @@ defined( 'ABSPATH' ) || exit;
  * @since 1.0.0
  */
 class Shortcode {
-	const SHORTCODE = 'pondermatic-strategy11-challenge';
+	/**
+	 * Use this shortcode in a post to trigger rendering of the challenge data.
+	 *
+	 * @since 1.0.0
+	 */
+	protected string $shortcode = 'pondermatic-strategy11-challenge';
 
 	/**
 	 * An instance of the class that allows the data to be viewed.
@@ -35,7 +40,7 @@ class Shortcode {
 	public function __construct() {
 		add_action( 'wp', [ $this, 'init' ] );
 
-		add_shortcode( self::SHORTCODE, [ $this, 'shortcode_handler' ] );
+		add_shortcode( $this->shortcode, [ $this, 'shortcode_handler' ] );
 	}
 
 	/**
@@ -47,7 +52,7 @@ class Shortcode {
 	 * @since 1.0.0
 	 */
 	public function init(): void {
-		if ( $this->is_shortcode_used( self::SHORTCODE ) === false ) {
+		if ( $this->is_shortcode_used( $this->shortcode ) === false ) {
 			return;
 		}
 		$this->view = new View_Data();
