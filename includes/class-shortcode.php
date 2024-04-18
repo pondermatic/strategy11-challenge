@@ -78,14 +78,9 @@ class Shortcode {
 	 * and display the data returned formatted into a table-like display.
 	 *
 	 * @since 1.0.0
-	 * @param string[]|empty $attributes An associative array of attributes, or an empty string if
-	 *                                   no attributes are given.
-	 * @param string         $content    The enclosed content, if the shortcode is used in its
-	 *                                   enclosing form.
-	 * @param string         $tag        The shortcode tag, useful for shared callback functions.
 	 * @return string The rendered output of the shortcode.
 	 */
-	public function shortcode_handler( array|string $attributes, string $content, string $tag ): string {
+	public function shortcode_handler(): string {
 		return $this->view->render();
 	}
 }
