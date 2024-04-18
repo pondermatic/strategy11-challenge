@@ -8,6 +8,8 @@
 
 namespace Pondermatic\Strategy11\Challenge;
 
+use WP_Post;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -19,36 +21,51 @@ class Shortcode {
 	const SHORTCODE = 'pondermatic-strategy11-challenge';
 
 	/**
+	 * An instance of the class that allows the data to be viewed.
+	 *
+	 * @since 1.0.0
+	 */
+	protected View_Data $view;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'wp', [ $this, 'init' ] );
 
 		add_shortcode( self::SHORTCODE, [ $this, 'shortcode_handler' ] );
 	}
 
 	/**
-	 * Adds scripts to the page.
+	 * Initialize properties.
+	 *
+	 * This must be called after the global $post is set
+	 * and before shortcode is handled.
 	 *
 	 * @since 1.0.0
 	 */
-	public function enqueue_scripts(): void {
-		if ( wc_post_content_has_shortcode( self::SHORTCODE ) ) {
-			wp_enqueue_script(
-				'psc-shortcode',
-				plugin_dir_url( __DIR__ ) . 'assets/js/psc-shortcode.js',
-				[
-					'jquery',
-					'wp-api',
-				],
-				Core::VERSION,
-				[
-					'in_footer' => false,
-				]
-			);
+	public function init(): void {
+		if ( $this->is_shortcode_used( self::SHORTCODE ) === false ) {
+			return;
 		}
+		$this->view = new View_Data();
+	}
+
+	/**
+	 * Return `true` if the current post contains the given shortcode, else `false`.
+	 *
+	 * @since 1.0.0
+	 * @global WP_Post $post
+	 * @param string   $shortcode
+	 * @return bool
+	 */
+	protected function is_shortcode_used( string $shortcode ): bool {
+		global $post;
+		return is_singular() &&
+			   is_a( $post, 'WP_Post' ) &&
+			   has_shortcode( $post->post_content, $shortcode );
 	}
 
 	/**
@@ -64,19 +81,6 @@ class Shortcode {
 	 * @return string The rendered output of the shortcode.
 	 */
 	public function shortcode_handler( array|string $attributes, string $content, string $tag ): string {
-		$debug    = 0 ? '?XDEBUG_SESSION_START=psc' : '';
-		$rest_url = Core::$challenge_api->get_this_endpoint() . $debug;
-		$data     = 0 ? print_r( json_decode( wp_remote_get( $rest_url )['body'] ), true ) : '';
-		return <<<HEREDOC
-<div id="psc-display">
-<pre>$data</pre>
-<h2 class="psc-table-title"></h2>
-<table class="psc-table wp-list-table widefat fixed">
-<thead></thead>
-<tbody></tbody>
-</table>
-</div>
-<script>psc.shortcode.load( "$rest_url" );</script>
-HEREDOC;
+		return $this->view->render();
 	}
 }
