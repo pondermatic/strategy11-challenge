@@ -59,11 +59,11 @@ class View_Data {
 		$rest_url = Core::$challenge_api->get_this_endpoint();
 		return <<<HEREDOC
 <div id="psc-display">
-<h2 class="psc-table-title"></h2>
-<table class="psc-table wp-list-table widefat fixed">
-<thead></thead>
-<tbody></tbody>
-</table>
+	<h2 class="psc-table-title"></h2>
+	<table class="psc-table wp-list-table widefat fixed">
+		<thead></thead>
+		<tbody></tbody>
+	</table>
 </div>
 <script>psc.shortcode.load( "$rest_url" );</script>
 HEREDOC;
