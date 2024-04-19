@@ -60,7 +60,7 @@ class View_Data {
 		return <<<HEREDOC
 <div id="psc-display">
 	<h2 class="psc-table-title"></h2>
-	<table class="psc-table wp-list-table widefat fixed">
+	<table class="psc-table">
 		<thead></thead>
 		<tbody></tbody>
 	</table>

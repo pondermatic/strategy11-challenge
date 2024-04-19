@@ -81,6 +81,12 @@ class Shortcode {
 	 * @return string The rendered output of the shortcode.
 	 */
 	public function shortcode_handler(): string {
-		return $this->view->render();
+		$challenge_data = $this->view->render();
+		return <<<HEREDOC
+<div class="psc-wrap">
+	$challenge_data
+</div>
+
+HEREDOC;
 	}
 }
