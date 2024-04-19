@@ -35,12 +35,28 @@ class Core {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		if ( ! is_admin() ) {
+
+		add_action( 'plugins_loaded', [ $this, 'load_plugin_text_domain' ] );
+		if ( is_admin() ) {
+			new Admin();
+		} else {
 			new Shortcode();
 		}
 		self::$challenge_api = new Challenge_API();
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			new CLI_Clear_Cached_Response();
 		}
+	}
+
+	/**
+	 * Load the plugin text domain for translation.
+	 *
+	 * @since 1.0.0
+	 */
+	public function load_plugin_text_domain(): void {
+		load_plugin_textdomain(
+			domain: 'pondermatic-strategy11-challenge',
+			plugin_rel_path: dirname( plugin_basename( __FILE__ ), 2 ) . '/languages/',
+		);
 	}
 }
