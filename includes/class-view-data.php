@@ -33,7 +33,7 @@ class View_Data {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts(): void {
-		$assets_dir = plugin_dir_url( __DIR__ ) . 'assets/';
+		$assets_dir = plugin_dir_url( __DIR__ ) . 'assets';
 		wp_enqueue_script(
 			handle: 'psc-shortcode',
 			src: "$assets_dir/js/psc-shortcode.js",
@@ -56,7 +56,7 @@ class View_Data {
 	 * @since 1.0.0
 	 */
 	public function render(): string {
-		$rest_url = Core::$challenge_api->get_this_endpoint();
+		$rest_url = esc_js( Core::$challenge_api->get_this_endpoint() );
 		return <<<HEREDOC
 <div id="psc-display">
 	<h2 class="psc-table-title"></h2>
