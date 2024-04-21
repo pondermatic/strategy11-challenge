@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+	bootstrap="tests/phpunit/bootstrap-loader.php"
+	colors="true"
+	verbose="true"
+	>
+	<testsuites>
+		<testsuite name="Pondermatic Strategy11 Challenge">
+			<directory suffix=".php">./tests/</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

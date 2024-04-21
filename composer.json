@@ -1,7 +1,9 @@
 {
   "name": "pondermatic/strategy11-challenge",
   "description": "Adds a WordPress endpoint to return data from a Strategy11 challenge API.",
-  "minimum-stability": "stable",
+  "type": "wordpress-plugin",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "license": "GPL-3.0-or-later",
   "authors": [
     {
@@ -9,33 +11,97 @@
       "email": "jamesdev@happycorner.us"
     }
   ],
+  "archive": {
+    "name": "pondermatic-strategy11-challenge",
+    "exclude": [
+      "/.idea/",
+      "/archive/",
+      "/tests/",
+      "/tmp/",
+      "/vendor/",
+      "!/vendor/autoload.php",
+      "!/vendor/composer/",
+      "/vendor/composer/installed.*",
+      "/vendor/composer/LICENSE",
+      "/.gitignore",
+      "/composer.*",
+      "/phpcs.xml",
+      "/phpunit.xml*",
+      "/README.md",
+      "/test-config.php"
+    ]
+  },
   "autoload": {
     "classmap": [
       "includes/"
     ]
   },
   "autoload-dev": {
-    "classmap": [
-      "tests/phpunit/"
-    ],
     "psr-4": {
       "PHPUnit\\": "vendor/phpunit/phpunit/src/"
     }
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/pondermatic/WordPress-Coding-Standards.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://gitlab.com/pondermatic-llc/wordpress/wordpress-coding-standards.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://gitlab.com/pondermatic-llc/wordpress/wordpress-phpunit-framework.git"
+    }
+  ],
   "require": {
     "php": ">=8.1"
   },
   "require-dev": {
     "pondermatic/composer-archive-project": "^1.0.0",
-    "phpunit/phpunit": "^9.5",
+    "pondermatic/wordpress-coding-standards": "~1.0",
+    "pondermatic/wordpress-phpunit-framework": "~1.0",
     "wp-cli/wp-cli": "^2.10"
   },
   "config": {
     "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
       "pondermatic/composer-archive-project": true
     },
     "platform": {
       "php": "8.1"
     }
+  },
+  "scripts": {
+    "phpcbf": "vendor/bin/phpcbf",
+    "phpcs": "vendor/bin/phpcs",
+    "phpunit": "vendor/bin/phpunit",
+    "ponder-test": "vendor/bin/ponder-test",
+    "make-archive": "@composer archive-project --dir=archive --format=zip",
+    "make-pot": "wp i18n make-pot . --exclude=tmp",
+    "phpcs-config": [
+      "@phpcs --config-set default_standard WordPress-Pondermatic",
+      "@phpcs --config-set installed_paths '../../wp-coding-standards/wpcs,../../phpcompatibility/php-compatibility,../../phpcompatibility/phpcompatibility-paragonie,../../phpcompatibility/phpcompatibility-wp,../../pondermatic/wordpress-coding-standards'"
+    ],
+    "phpcs-errors": "@phpcs --error-severity=1 --warning-severity=6",
+    "post-archive-cmd": "@composer dump-autoload",
+    "post-update-cmd": "@phpcs-config",
+    "pre-archive-cmd": "@composer dump-autoload --no-dev",
+    "release": [
+      "@composer make-pot",
+      "@composer make-archive"
+    ],
+    "test-install": [
+      "@ponder-test install-wp-suite-db"
+    ],
+    "test-install-help": "@ponder-test --help",
+    "phpinfo": "php -r 'phpinfo();'"
+  },
+  "scripts-descriptions": {
+    "phpcs": "Runs PHP_CodeSniffer.",
+    "phpunit": "Runs PHPUnit.",
+    "release": "Makes the language files and then creates an archive package.",
+    "test-install": "Installs WordPress in a temporary directory and creates a test database."
   }
 }
