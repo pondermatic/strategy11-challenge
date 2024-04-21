@@ -65,6 +65,7 @@ class Challenge_API {
 			return $response;
 		}
 		$challenge_response = json_decode( $response['body'], associative: false );
+		// @todo Validate or sanitize challenge data using a schema.
 		$json_error         = json_last_error();
 		if ( $json_error === JSON_ERROR_NONE ) {
 			$cached_value           = new stdClass();

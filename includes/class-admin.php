@@ -105,7 +105,9 @@ class Admin {
 	public function render_page(): void {
 		if ( isset( $_GET['action'] ) && $_GET['action'] === 'refresh' ) {
 			Core::$challenge_api->clear_cached_response();
-			wp_redirect( get_admin_url() . "admin.php?page={$this->menu_slug}" );
+			wp_redirect(
+				wp_sanitize_redirect( get_admin_url() . "admin.php?page=$this->menu_slug" )
+			);
 			exit;
 		}
 
@@ -113,7 +115,7 @@ class Admin {
 		$logo           = Images::svg_logo( [ 'height' => '35', 'width' => '35' ] );
 		$button_text    = __( 'Refresh', 'pondermatic-strategy11-challenge' );
 		$challenge_data = $this->view->render();
-		$refresh_url    = get_admin_url() . "admin.php?page={$this->menu_slug}&action=refresh";
+		$refresh_url    = esc_attr( get_admin_url() . "admin.php?page=$this->menu_slug&action=refresh" );
 		echo <<<HEREDOC
 <div class="psc-wrap">
 	<div class="psc-nav-bar">
