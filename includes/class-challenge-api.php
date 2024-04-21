@@ -53,7 +53,7 @@ class Challenge_API {
 	 * @since 1.0.0
 	 */
 	public function get_challenge_response_body(): WP_Error|stdClass {
-		$cached_value = get_site_transient( Core::ROUTE_NAMESPACE . self::ROUTE );
+		$cached_value = get_site_transient( $this->get_transient_name() );
 		if ( $cached_value !== false ) {
 			$cached_value = json_decode( $cached_value );
 			return $cached_value->response;
@@ -72,7 +72,7 @@ class Challenge_API {
 			$cached_value->response = $challenge_response;
 			$cached_value->time     = time();
 			set_site_transient(
-				Core::ROUTE_NAMESPACE . self::ROUTE,
+				$this->get_transient_name(),
 				wp_json_encode( $cached_value ),
 				HOUR_IN_SECONDS
 			);
@@ -89,6 +89,16 @@ class Challenge_API {
 	 */
 	public function get_this_endpoint(): string {
 		return get_rest_url( null, Core::ROUTE_NAMESPACE . self::ROUTE );
+	}
+
+	/**
+	 * Returns the transient name used to cache the response body from the remote API.
+	 *
+	 * @since 1.0.0
+	 * @return string
+	 */
+	public function get_transient_name(): string {
+		return Core::ROUTE_NAMESPACE . self::ROUTE;
 	}
 
 	/**
