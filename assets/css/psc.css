@@ -3,22 +3,6 @@
 	/*padding-bottom: 1em;*/
 }
 
-/* Class name set in wp-admin/admin-header.php using hook from get_plugin_page_hookname(). */
-body.toplevel_page_pondermatic-strategy11-challenge #wpcontent {
-	background-color: white;
-	padding-left: 0;
-	padding-right: 0;
-}
-
-table.toplevel_page_pondermatic-strategy11-challenge {
-	border-width: 0;
-	margin: 20px 0;
-}
-
-table.toplevel_page_pondermatic-strategy11-challenge th {
-	font-size: var(--text-md);
-}
-
 .psc-button-primary {
 	background-color: var(--primary-500);
 	border-radius: 30px;
@@ -110,29 +94,23 @@ table.toplevel_page_pondermatic-strategy11-challenge th {
 	word-wrap: break-word;
 }
 
+.psc-table .check-column {
+	padding: 6px 0 25px;
+	vertical-align: top;
+	width: 2.2em;
+}
+
+.psc-table .no-items td {
+	border-bottom-width: 0;
+}
+
 .psc-table a,
 .psc-table button.button-link {
 	text-decoration: none;
 }
 
-.psc-table td,
-.psc-table th {
-	padding: 8px 10px;
-}
-
-.psc-table thead th,
-.psc-table thead td {
-	border-bottom: 1px solid #c3c4c7;
-}
-
-.psc-table tfoot th,
-.psc-table tfoot td {
-	border-bottom: none;
-	border-top: 1px solid #c3c4c7;
-}
-
-.psc-table .no-items td {
-	border-bottom-width: 0;
+.psc-table tbody th.check-column {
+	padding: 9px 0 22px;
 }
 
 .psc-table td {
@@ -147,12 +125,15 @@ table.toplevel_page_pondermatic-strategy11-challenge th {
 	line-height: 1.5em;
 }
 
-.psc-table th,
-.psc-table thead td,
+.psc-table td,
+.psc-table th {
+	padding: 8px 10px;
+}
+
+.psc-table tfoot th,
 .psc-table tfoot td {
-	font-size: 14px;
-	line-height: 1.3em;
-	text-align: left;
+	border-bottom: none;
+	border-top: 1px solid #c3c4c7;
 }
 
 .psc-table th input,
@@ -164,14 +145,12 @@ table.toplevel_page_pondermatic-strategy11-challenge th {
 	vertical-align: text-top;
 }
 
-.psc-table .check-column {
-	padding: 6px 0 25px;
-	vertical-align: top;
-	width: 2.2em;
-}
-
-.psc-table tbody th.check-column {
-	padding: 9px 0 22px;
+.psc-table th,
+.psc-table thead td,
+.psc-table tfoot td {
+	font-size: 14px;
+	line-height: 1.3em;
+	text-align: left;
 }
 
 .psc-table thead td.check-column,
@@ -185,6 +164,11 @@ table.toplevel_page_pondermatic-strategy11-challenge th {
 .psc-table tfoot td.check-column {
 	padding-top: 4px;
 	vertical-align: middle;
+}
+
+.psc-table thead th,
+.psc-table thead td {
+	border-bottom: 1px solid #c3c4c7;
 }
 
 .psc-table-title {
@@ -274,4 +258,20 @@ table.toplevel_page_pondermatic-strategy11-challenge th {
 
 .psc-wrap .wrap {
 	margin: var(--gap-xl);
+}
+
+/* Class name set in wp-admin/admin-header.php using hook from get_plugin_page_hookname(). */
+body.toplevel_page_pondermatic-strategy11-challenge #wpcontent {
+	background-color: white;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+table.toplevel_page_pondermatic-strategy11-challenge {
+	border-width: 0;
+	margin: 20px 0;
+}
+
+table.toplevel_page_pondermatic-strategy11-challenge th {
+	font-size: var(--text-md);
 }
