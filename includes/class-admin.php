@@ -17,6 +17,12 @@ defined( 'ABSPATH' ) || exit;
  */
 class Admin {
 	/**
+	 * Displays the challenge data in a table.
+	 *
+	 * @since 1.0.0
+	 */
+	protected Data_List_Table $list_table;
+	/**
 	 * The menu slug and admin page name.
 	 *
 	 * @since 1.0.0
@@ -38,6 +44,13 @@ class Admin {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_init', array( $this, 'init' ) );
+
+		/**
+		 * @see wp-admin/admin.php `do_action( "load-{$page_hook}" );`
+		 */
+		add_action( 'load-toplevel_page_pondermatic-strategy11-challenge', function () {
+			$this->list_table = new Data_List_Table();
+		} );
 	}
 
 	/**
@@ -103,19 +116,28 @@ class Admin {
 	 * @since 1.0.0
 	 */
 	public function render_page(): void {
+		$order_by    = isset( $_GET['orderby'] ) ? '&orderby=' . sanitize_text_field( $_GET['orderby'] ) : '';
+		$order       = isset( $_GET['order'] ) ? '&order=' . sanitize_text_field( $_GET['order'] ) : '';
+		$refresh_url = get_admin_url() . "admin.php?page=$this->menu_slug" . $order_by . $order;
 		if ( isset( $_GET['action'] ) && $_GET['action'] === 'refresh' ) {
 			Core::$challenge_api->clear_cached_response();
 			wp_redirect(
-				wp_sanitize_redirect( get_admin_url() . "admin.php?page=$this->menu_slug" )
+				wp_sanitize_redirect( $refresh_url )
 			);
 			exit;
 		}
 
-		$header_text    = __( 'Challenge Data', 'pondermatic-strategy11-challenge' );
-		$logo           = Images::svg_logo( [ 'height' => '35', 'width' => '35' ] );
-		$button_text    = __( 'Refresh', 'pondermatic-strategy11-challenge' );
-		$challenge_data = $this->view->render();
-		$refresh_url    = esc_attr( get_admin_url() . "admin.php?page=$this->menu_slug&action=refresh" );
+		$header_text = __( 'Challenge Data', 'pondermatic-strategy11-challenge' );
+		$logo        = Images::svg_logo( [ 'height' => '35', 'width' => '35' ] );
+		$button_text = __( 'Refresh', 'pondermatic-strategy11-challenge' );
+		$refresh_url = esc_attr( "$refresh_url&action=refresh" );
+
+		$this->list_table->prepare_items();
+		$this->list_table->views();
+		ob_start();
+		$this->list_table->display();
+		$challenge_data = ob_get_clean();
+
 		echo <<<HEREDOC
 <div class="psc-wrap">
 	<div class="psc-nav-bar">
@@ -131,7 +153,9 @@ class Admin {
 			<a href="$refresh_url" class="psc-button-primary">$button_text</a>
 		</div>
 	</div>
-	$challenge_data
+	<div class="wrap">
+		$challenge_data
+	</div>
 </div>
 HEREDOC;
 	}

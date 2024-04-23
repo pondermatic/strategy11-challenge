@@ -3,10 +3,20 @@
 	/*padding-bottom: 1em;*/
 }
 
-/* Class set in wp-admin/admin-header.php using hook from get_plugin_page_hookname(). */
+/* Class name set in wp-admin/admin-header.php using hook from get_plugin_page_hookname(). */
 body.toplevel_page_pondermatic-strategy11-challenge #wpcontent {
+	background-color: white;
 	padding-left: 0;
 	padding-right: 0;
+}
+
+table.toplevel_page_pondermatic-strategy11-challenge {
+	border-width: 0;
+	margin: 20px 0;
+}
+
+table.toplevel_page_pondermatic-strategy11-challenge th {
+	font-size: var(--text-md);
 }
 
 .psc-button-primary {
@@ -242,8 +252,8 @@ body.toplevel_page_pondermatic-strategy11-challenge #wpcontent {
 	--small-radius: 8px;
 	--small-sidebar: 275px;
 	--success-100: #D1FAE5;
-	--success-25: #f6fef9;
-	--success-500: #12b76a;
+	--success-25: #F6FEF9;
+	--success-500: #12B76A;
 	--success-50: #ECFDF3;
 	--success-800: #065F46;
 	--success-900: #054F31;
@@ -260,4 +270,8 @@ body.toplevel_page_pondermatic-strategy11-challenge #wpcontent {
 	font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	font-size: var(--text-sm);
 	line-height: var(--leading);
+}
+
+.psc-wrap .wrap {
+	margin: var(--gap-xl);
 }
