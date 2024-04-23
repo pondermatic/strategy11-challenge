@@ -2,10 +2,8 @@
 
 namespace Pondermatic\Strategy11\Challenge\PHPUnit;
 
-use ParagonIE\Sodium\Core\Curve25519\H;
 use PHPUnit\Framework\TestCase;
 use Pondermatic\Strategy11\Challenge\Challenge_API;
-use stdClass;
 
 class Test_Challenge_API extends TestCase {
 	/**
