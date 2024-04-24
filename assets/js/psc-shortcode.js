@@ -2,7 +2,7 @@
  * PondermaticStrategy11Challenge shortcode definition.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 if ( 'undefined' === typeof window.psc ) {
@@ -29,8 +29,11 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
  * @since 1.0.0
  * @param {jQuery} $ jQuery library.
  * @param {obj} psc PondermaticStrategy11Challenge namespace.
+ * @param {obj} wp WordPress namespace.
+ * @param {obj} wp.escapeHtml Functions from wp-includes/js/dist/escape-html.js.
+ * @param {function} wp.escapeHtml.escapeHTML Replaces '<' and '&' characters with HTML entities.
  */
-( function( $, psc ) {
+( function( $, psc, wp ) {
 	'use strict';
 
 	/**
@@ -41,11 +44,13 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	 */
 	function display( data ) {
 		let pscDisplay = $( '#psc-display' );
-		pscDisplay.find( '.psc-table-title' ).html( data.title );
+		pscDisplay.find( '.psc-table-title' ).html(
+			wp.escapeHtml.escapeHTML( data.title )
+		);
 
 		let headerHtml = "<tr>";
 		$.each( data.data.headers, function( key, value ) {
-			headerHtml += "<th>" + value + "</th>";
+			headerHtml += "<th>" + wp.escapeHtml.escapeHTML( value ) + "</th>";
 		} );
 		headerHtml += "</tr>";
 		pscDisplay.find( '.psc-table thead' ).append( headerHtml );
@@ -57,7 +62,7 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 					// @todo Use WP options 'date_format' and 'time_format'.
 					value = new Date( value ).toString();
 				}
-				rowHtml += '<td>' + value + '</td>';
+				rowHtml += '<td>' + wp.escapeHtml.escapeHTML( value ) + '</td>';
 			} )
 			rowHtml += '</tr>';
 			pscDisplay.find( '.psc-table tbody' ).append( rowHtml );
@@ -87,4 +92,4 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	psc.shortcode.load = function load( url ) {
 		fetchData( url );
 	};
-} )( window.jQuery, window.psc );
+} )( window.jQuery, window.psc, wp );

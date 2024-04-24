@@ -3,7 +3,7 @@
  * View_Data class definition.
  *
  * @since    1.0.0
- * @version  1.0.0
+ * @version  1.0.1
  */
 
 namespace Pondermatic\Strategy11\Challenge;
@@ -40,6 +40,7 @@ class View_Data {
 			deps: [
 				'jquery',
 				'wp-api',
+				'wp-escape-html'
 			],
 			ver: Core::VERSION,
 			args: [
