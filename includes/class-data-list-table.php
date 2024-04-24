@@ -173,7 +173,7 @@ class Data_List_Table extends WP_List_Table {
 		$order            = $_GET['order'] ?? '';
 		$this->sort_order = $order === 'desc' ? - 1 : 1;
 
-		$orderby = sanitize_text_field( $_GET['orderby'] ) ?? '';
+		$orderby = sanitize_text_field( $_GET['orderby'] ?? '' );
 		switch ( $orderby ) {
 			case 'date':
 				$this->comparison_property = 'date';
