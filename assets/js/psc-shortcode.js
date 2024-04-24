@@ -58,9 +58,12 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 		$.each( data.data.rows, function( rowNum, row ) {
 			let rowHtml = '<tr>';
 			$.each( row, function( key, value ) {
+				if ( typeof value !== 'string' ) {
+					value = String( value );
+				}
 				if ( key === 'date' ) {
 					// @todo Use WP options 'date_format' and 'time_format'.
-					value = new Date( value ).toString();
+					value = new Date( parseInt( value ) ).toString();
 				}
 				rowHtml += '<td>' + wp.escapeHtml.escapeHTML( value ) + '</td>';
 			} )
