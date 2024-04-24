@@ -29,33 +29,74 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
  * @since 1.0.0
  * @param {jQuery} $ jQuery library.
  * @param {obj} psc PondermaticStrategy11Challenge namespace.
- * @param {obj} wp WordPress namespace.
- * @param {obj} wp.escapeHtml Functions from wp-includes/js/dist/escape-html.js.
- * @param {function} wp.escapeHtml.escapeHTML Replaces '<' and '&' characters with HTML entities.
  */
-( function( $, psc, wp ) {
+( function( $, psc ) {
 	'use strict';
+
+	/**
+	 * @typedef data Data returned from the remote API.
+	 * @property {Array} headers
+	 * @property {obj} rows
+	 */
+
+	/**
+	 * @typedef response
+	 * @property {string} title Table title.
+	 * @property {data} data
+	 */
+
+	/**
+	 * @typedef rows
+	 * @property {int} id Unique identifier.
+	 * @property {string} fname First name.
+	 * @property {string} lname Last name.
+	 * @property {string} email E-mail address.
+	 * @property {int} date Unix timestamp.
+	 */
+
+	/**
+	 * @typedef wp
+	 * @property {obj} apiRequest Functions from wp-includes/js/api-=request.js.
+	 * @property {Module} datedate Functions from wp-includes/js/dist/date.js.
+	 * @property {Module} escapeHtml Functions from wp-includes/js/dist/escape-html.js.
+	 */
+
+	/**
+	 * @typedef apiRequest
+	 * @property {function} transport jQuery.ajax().
+	 */
+
+	/**
+	 * @typedef wp.date
+	 * @property {function} dateI18n Formats a date (like `wp_date()` in PHP),
+	 * 								 translating it into site's locale.
+	 */
+
+	/**
+	 * @typedef wp.escapeHtml
+	 * @property {function} escapeHTML Replaces '<' and '&' characters with HTML entities.
+	 */
 
 	/**
 	 * Display the challenge data in a table-like format.
 	 *
 	 * @since 1.0.0
-	 * @param {obj} data The data to display.
+	 * @param {response} response The data to display.
 	 */
-	function display( data ) {
+	function display( response ) {
 		let pscDisplay = $( '#psc-display' );
 		pscDisplay.find( '.psc-table-title' ).html(
-			wp.escapeHtml.escapeHTML( data.title )
+			wp.escapeHtml.escapeHTML( response.title )
 		);
 
 		let headerHtml = "<tr>";
-		$.each( data.data.headers, function( key, value ) {
+		$.each( response.data.headers, function( key, value ) {
 			headerHtml += "<th>" + wp.escapeHtml.escapeHTML( value ) + "</th>";
 		} );
 		headerHtml += "</tr>";
 		pscDisplay.find( '.psc-table thead' ).append( headerHtml );
 
-		$.each( data.data.rows, function( rowNum, row ) {
+		$.each( response.data.rows, function( rowNum, row ) {
 			let rowHtml = '<tr>';
 			$.each( row, function( key, value ) {
 				if ( typeof value !== 'string' ) {
@@ -94,4 +135,4 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	psc.shortcode.load = function load( url ) {
 		fetchData( url );
 	};
-} )( window.jQuery, window.psc, wp );
+} )( window.jQuery, window.psc );
