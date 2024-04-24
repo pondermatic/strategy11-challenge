@@ -40,7 +40,8 @@ class View_Data {
 			deps: [
 				'jquery',
 				'wp-api',
-				'wp-escape-html'
+				'wp-date',
+				'wp-escape-html',
 			],
 			ver: Core::VERSION,
 			args: [

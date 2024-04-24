@@ -62,8 +62,7 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 					value = String( value );
 				}
 				if ( key === 'date' ) {
-					// @todo Use WP options 'date_format' and 'time_format'.
-					value = new Date( parseInt( value ) ).toString();
+					value = wp.date.dateI18n( parseInt( value ) );
 				}
 				rowHtml += '<td>' + wp.escapeHtml.escapeHTML( value ) + '</td>';
 			} )
