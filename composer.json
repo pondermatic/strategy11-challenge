@@ -37,6 +37,9 @@
     ]
   },
   "autoload-dev": {
+    "classmap": [
+      "tests/phpunit/"
+    ],
     "psr-4": {
       "PHPUnit\\": "vendor/phpunit/phpunit/src/"
     }
