@@ -41,6 +41,10 @@ class Challenge_API {
 	 * @return bool True on success or not cached, false on failure.
 	 */
 	public function clear_cached_response(): bool {
+		// Only WordPress admins and WP-CLI users may clear the cache.
+		if ( ! is_admin() && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+			return false;
+		}
 		if ( get_site_transient( Core::ROUTE_NAMESPACE . self::ROUTE ) === false ) {
 			return true;
 		}
