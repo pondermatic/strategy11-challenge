@@ -23,7 +23,7 @@ class View_Data {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
@@ -33,22 +33,8 @@ class View_Data {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts(): void {
-		$assets_dir = plugin_dir_url( __DIR__ ) . 'assets';
-		wp_enqueue_script(
-			handle: 'psc-shortcode',
-			src: "$assets_dir/js/psc-shortcode.js",
-			deps: [
-				'jquery',
-				'wp-api',
-				'wp-date',
-				'wp-escape-html',
-			],
-			ver: Core::VERSION,
-			args: [
-				'in_footer' => false,
-			]
-		);
-		wp_enqueue_style( handle: 'psc', src: "$assets_dir/css/psc.css", ver: Core::VERSION );
+		wp_enqueue_script( handle: 'psc-shortcode' );
+		wp_enqueue_style( handle: 'psc' );
 	}
 
 	/**

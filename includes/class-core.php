@@ -36,7 +36,10 @@ class Core {
 	 */
 	public function __construct() {
 
+		add_action( 'init', [ $this, 'register_assets' ] );
 		add_action( 'plugins_loaded', [ $this, 'load_plugin_text_domain' ] );
+
+		// Initialize classes.
 		if ( is_admin() ) {
 			new Admin();
 		} else {
@@ -46,6 +49,30 @@ class Core {
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			new CLI_Clear_Cached_Response();
 		}
+	}
+
+	/**
+	 * Registers CSS and JavaScript files to be enqueued later if needed.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function register_assets(): void {
+		$assets_dir = plugin_dir_url( __DIR__ ) . 'assets';
+		wp_register_style( handle: 'psc', src: "$assets_dir/css/psc.css", ver: Core::VERSION );
+		wp_register_script(
+			handle: 'psc-shortcode',
+			src: "$assets_dir/js/psc-shortcode.js",
+			deps: [
+				'jquery',
+				'wp-api',
+				'wp-date',
+				'wp-escape-html',
+			],
+			ver: Core::VERSION,
+			args: [
+				'in_footer' => false,
+			]
+		);
 	}
 
 	/**

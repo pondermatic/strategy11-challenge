@@ -86,7 +86,7 @@ class Admin {
 			return;
 		}
 		add_filter( 'admin_body_class', [ $this, 'add_admin_body_classes' ], 999 );
-		$this->view = new View_Data();
+		wp_enqueue_style( handle: 'psc' );
 	}
 
 	/**
