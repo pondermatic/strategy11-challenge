@@ -2,10 +2,10 @@
 
 namespace Pondermatic\Strategy11\Challenge\PHPUnit;
 
-use PHPUnit\Framework\TestCase;
+use Pondermatic\WordpressPhpunitFramework\Test_Case;
 use Pondermatic\Strategy11\Challenge\Challenge_API;
 
-class Test_Challenge_API extends TestCase {
+class Test_Challenge_API extends Test_Case {
 	/**
 	 * @since 1.0.0
 	 */
@@ -94,7 +94,7 @@ class Test_Challenge_API extends TestCase {
 		);
 	}
 
-	public function test_returned_data() {
-
-	}
+//	public function test_returned_data() {
+//
+//	}
 }
