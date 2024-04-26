@@ -20,12 +20,14 @@ class Admin {
 	 * Displays the challenge data in a table.
 	 *
 	 * @since 1.0.0
+	 * @var Data_List_Table
 	 */
 	protected Data_List_Table $list_table;
 	/**
 	 * The menu slug and admin page name.
 	 *
 	 * @since 1.0.0
+	 * @var string
 	 */
 	protected string $menu_slug = 'pondermatic-strategy11-challenge';
 
@@ -33,6 +35,7 @@ class Admin {
 	 * An instance of the class that allows the data to be viewed.
 	 *
 	 * @since 1.0.0
+	 * @var View_Data
 	 */
 	protected View_Data $view;
 
@@ -46,6 +49,8 @@ class Admin {
 		add_action( 'admin_init', array( $this, 'init' ) );
 
 		/**
+		 * Instantiate a table object when the admin page is for this plugin.
+		 *
 		 * @see wp-admin/admin.php `do_action( "load-{$page_hook}" );`
 		 */
 		add_action( 'load-toplevel_page_pondermatic-strategy11-challenge', function () {
@@ -93,7 +98,7 @@ class Admin {
 	 * Adds a class to the body element of an admin page.
 	 *
 	 * @since 1.0.0
-	 * @param string $classes
+	 * @param string $classes Class names separated by a space.
 	 * @return string
 	 */
 	public function add_admin_body_classes( string $classes ): string {

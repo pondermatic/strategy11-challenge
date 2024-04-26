@@ -34,18 +34,24 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	'use strict';
 
 	/**
-	 * @typedef data Data returned from the remote API.
+	 * Table data returned from the remote API.
+	 *
+	 * @typedef data
 	 * @property {Array} headers
 	 * @property {obj} rows
 	 */
 
 	/**
+	 * Response from the remote API.
+	 *
 	 * @typedef response
 	 * @property {string} title Table title.
 	 * @property {data} data
 	 */
 
 	/**
+	 * A person.
+	 *
 	 * @typedef rows
 	 * @property {int} id Unique identifier.
 	 * @property {string} fname First name.
@@ -55,6 +61,8 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	 */
 
 	/**
+	 * WordPress namespace.
+	 *
 	 * @typedef wp
 	 * @property {obj} apiRequest Functions from wp-includes/js/api-=request.js.
 	 * @property {Module} datedate Functions from wp-includes/js/dist/date.js.
@@ -62,17 +70,23 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	 */
 
 	/**
-	 * @typedef apiRequest
+	 * WordPress API Request.
+	 *
+	 * @typedef wp.apiRequest
 	 * @property {function} transport jQuery.ajax().
 	 */
 
 	/**
+	 * WordPress dat functions.
+	 *
 	 * @typedef wp.date
 	 * @property {function} dateI18n Formats a date (like `wp_date()` in PHP),
 	 * 								 translating it into site's locale.
 	 */
 
 	/**
+	 * WordPress escape HTML functions.
+	 *
 	 * @typedef wp.escapeHtml
 	 * @property {function} escapeHTML Replaces '<' and '&' characters with HTML entities.
 	 */

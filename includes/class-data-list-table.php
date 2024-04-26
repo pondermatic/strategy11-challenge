@@ -20,12 +20,18 @@ defined( 'ABSPATH' ) || exit;
  */
 class Data_List_Table extends WP_List_Table {
 	/**
+	 * The response property used to compare two response objects during sorting.
+	 *
 	 * @since 1.0.0
+	 * @var string
 	 */
 	protected string $comparison_property;
 
 	/**
+	 * The response from the remote challenge API.
+	 *
 	 * @since 1.0.0
+	 * @var stdClass
 	 */
 	protected stdClass $response;
 
@@ -39,8 +45,10 @@ class Data_List_Table extends WP_List_Table {
 	protected int $sort_order = 1;
 
 	/**
-	 * @inheritDoc
+	 * Constructor.
+	 *
 	 * @since 1.0.0
+	 * @param array $args @see WP_List_Table::__construct().
 	 */
 	public function __construct( $args = array() ) {
 		parent::__construct( $args );
@@ -53,7 +61,8 @@ class Data_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Checks the current user's permissions.
+	 *
 	 * @since 1.0.0
 	 */
 	public function ajax_user_can(): bool {
@@ -64,7 +73,8 @@ class Data_List_Table extends WP_List_Table {
 	 * Returns a formatted date from the user item.
 	 *
 	 * @since 1.0.0
-	 * @param stdClass $item
+	 * @used-by WP_List_Table::single_row_columns()
+	 * @param stdClass $item The user object.
 	 * @return string
 	 */
 	protected function column_date( stdClass $item ): string {
@@ -78,8 +88,8 @@ class Data_List_Table extends WP_List_Table {
 	 * Returns the value from the $item object's property.
 	 *
 	 * @since 1.0.0
-	 * @param object|array $item
-	 * @param string       $column_name
+	 * @param object $item        The user object.
+	 * @param string $column_name The user object's property name.
 	 */
 	protected function column_default( $item, $column_name ): string {
 		return $item->$column_name;
@@ -87,12 +97,11 @@ class Data_List_Table extends WP_List_Table {
 
 
 	/**
-	 * Returns an integer comparison.
+	 * Returns an integer comparison between a property of two objects.
 	 *
 	 * @since 1.0.0
-	 * @param stdClass $a
-	 * @param stdClass $b
-	 * @return int
+	 * @param stdClass $a Object 'a'.
+	 * @param stdClass $b Object 'b'.
 	 */
 	protected function compare_integers( stdClass $a, stdClass $b ): int {
 		$property = $this->comparison_property;
@@ -106,12 +115,11 @@ class Data_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * Returns a string comparison.
+	 * Returns a string comparison between a property of two objects.
 	 *
 	 * @since 1.0.0
-	 * @param stdClass $a
-	 * @param stdClass $b
-	 * @return int
+	 * @param stdClass $a Object 'a'.
+	 * @param stdClass $b Object 'b'.
 	 */
 	protected function compare_strings( stdClass $a, stdClass $b ): int {
 		$property = $this->comparison_property;
@@ -119,7 +127,9 @@ class Data_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Gets a list of columns.
+	 *
+	 * @see   WP_List_Table::get_columns()
 	 * @since 1.0.0
 	 * @return string[]
 	 */
@@ -134,7 +144,9 @@ class Data_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Gets a list of sortable columns.
+	 *
+	 * @see   WP_List_Table::get_sortable_columns()
 	 * @since 1.0.0
 	 */
 	protected function get_sortable_columns(): array {
@@ -148,7 +160,9 @@ class Data_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Prepares the list of items for displaying.
+	 *
+	 * @see   WP_List_Table::prepare_items()
 	 * @since 1.0.0
 	 */
 	public function prepare_items(): void {
@@ -166,7 +180,7 @@ class Data_List_Table extends WP_List_Table {
 	 * Sorts the items.
 	 *
 	 * @since 1.0.0
-	 * @param stdClass[] $items
+	 * @param stdClass[] $items User objects.
 	 * @return stdClass[]
 	 */
 	protected function sort_items( array $items ): array {

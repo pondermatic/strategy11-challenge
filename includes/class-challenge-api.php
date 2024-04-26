@@ -20,15 +20,26 @@ defined( 'ABSPATH' ) || exit;
  */
 class Challenge_API {
 
+	/**
+	 * The API's route.
+	 *
+	 * @since 1.0.1
+	 */
 	const ROUTE = '/challenge';
 
 	/**
+	 * The action to encode into the nonce.
+	 *
 	 * @since 1.0.1
+	 * @var string
 	 */
 	protected string $nonce_clear_action = 'clear cached remote challenge response';
 
 	/**
+	 * The variable name of the nonce.
+	 *
 	 * @since 1.0.1
+	 * @var string
 	 */
 	protected string $nonce_clear_name = 'psc-clear-nonce';
 
@@ -130,7 +141,7 @@ class Challenge_API {
 	 * to the given URL.
 	 *
 	 * @since 1.0.1
-	 * @param string $url
+	 * @param string $url The URL that the nonce should be appended to.
 	 * @return string
 	 */
 	public function get_clear_nonce_url( string $url ): string {

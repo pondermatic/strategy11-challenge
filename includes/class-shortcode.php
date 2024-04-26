@@ -22,6 +22,7 @@ class Shortcode {
 	 * Use this shortcode in a post to trigger rendering of the challenge data.
 	 *
 	 * @since 1.0.0
+	 * @var string
 	 */
 	protected string $shortcode = 'pondermatic-strategy11-challenge';
 
@@ -29,6 +30,7 @@ class Shortcode {
 	 * An instance of the class that allows the data to be viewed.
 	 *
 	 * @since 1.0.0
+	 * @var View_Data
 	 */
 	protected View_Data $view;
 
@@ -63,7 +65,8 @@ class Shortcode {
 	 *
 	 * @since 1.0.0
 	 * @global WP_Post $post
-	 * @param string   $shortcode
+	 *
+	 * @param string $shortcode The shortcode to search for.
 	 * @return bool
 	 */
 	protected function is_shortcode_used( string $shortcode ): bool {

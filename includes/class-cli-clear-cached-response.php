@@ -25,7 +25,7 @@ class CLI_Clear_Cached_Response {
 	 * Constructor.
 	 *
 	 * @since 1.0.0
-	 * @throws Exception
+	 * @throws Exception Thrown by WP_CLI::add_command().
 	 */
 	public function __construct() {
 		WP_CLI::add_command(
