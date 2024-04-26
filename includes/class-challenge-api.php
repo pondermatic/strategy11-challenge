@@ -3,7 +3,7 @@
  * Endpoint class definition.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace Pondermatic\Strategy11\Challenge;
@@ -23,6 +23,16 @@ class Challenge_API {
 	const ROUTE = '/challenge';
 
 	/**
+	 * @since 1.0.1
+	 */
+	protected string $nonce_clear_action = 'clear cached remote challenge response';
+
+	/**
+	 * @since 1.0.1
+	 */
+	protected string $nonce_clear_name = 'psc-clear-nonce';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.0.0
@@ -35,14 +45,30 @@ class Challenge_API {
 	}
 
 	/**
+	 * Returns true if the user is allowed to clear the cached remote challenge response.
+	 *
+	 * @since 1.0.1
+	 */
+	public function can_clear_cache_response(): bool {
+		// Only WordPress admins with a valid nonce field
+		// and WP-CLI users may clear the cache.
+		$given_nonce = sanitize_text_field( wp_unslash( $_REQUEST[ $this->nonce_clear_name ] ?? '' ) );
+		if (
+			( is_admin() && wp_verify_nonce( $given_nonce, $this->nonce_clear_action ) ) ||
+			( defined( 'WP_CLI' ) && WP_CLI ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Deletes the cached remote challenge response.
 	 *
 	 * @since 1.0.0
 	 * @return bool True on success or not cached, false on failure.
 	 */
 	public function clear_cached_response(): bool {
-		// Only WordPress admins and WP-CLI users may clear the cache.
-		if ( ! is_admin() && ! ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+		if ( $this->can_clear_cache_response() === false ) {
 			return false;
 		}
 		if ( get_site_transient( Core::ROUTE_NAMESPACE . self::ROUTE ) === false ) {
@@ -84,6 +110,35 @@ class Challenge_API {
 		} else {
 			return new WP_Error( $json_error, json_last_error_msg() );
 		}
+	}
+
+	/**
+	 * Returns a nonce field for clearing the cached remote challenge response.
+	 *
+	 * @since 1.0.1
+	 */
+	public function get_clear_nonce_field(): string {
+		return wp_nonce_field(
+			action: $this->nonce_clear_action,
+			name: $this->nonce_clear_name,
+			display: false
+		);
+	}
+
+	/**
+	 * Adds a nonce for clearing the cached remote challenge response
+	 * to the given URL.
+	 *
+	 * @since 1.0.1
+	 * @param string $url
+	 * @return string
+	 */
+	public function get_clear_nonce_url( string $url ): string {
+		return wp_nonce_url(
+			actionurl: $url,
+			action: $this->nonce_clear_action,
+			name: $this->nonce_clear_name,
+		);
 	}
 
 	/**

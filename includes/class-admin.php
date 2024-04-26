@@ -3,7 +3,7 @@
  * Admin class definition.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace Pondermatic\Strategy11\Challenge;
@@ -113,7 +113,7 @@ class Admin {
 	/**
 	 * Displays the admin page.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 */
 	public function render_page(): void {
 		$order_by    = isset( $_GET['orderby'] ) ? '&orderby=' . sanitize_text_field( $_GET['orderby'] ) : '';
@@ -130,8 +130,9 @@ class Admin {
 		$header_text = __( 'Challenge Data', 'pondermatic-strategy11-challenge' );
 		$logo        = Images::svg_logo( [ 'height' => '35', 'width' => '35' ] );
 		$button_text = __( 'Refresh', 'pondermatic-strategy11-challenge' );
-		$refresh_url = esc_attr( "$refresh_url&action=refresh" );
-
+		$refresh_url = Core::$challenge_api->get_clear_nonce_url(
+			esc_attr( "$refresh_url&action=refresh" )
+		);
 		$this->list_table->prepare_items();
 		$this->list_table->views();
 		ob_start();
