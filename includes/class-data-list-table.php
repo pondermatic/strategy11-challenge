@@ -106,9 +106,9 @@ class Data_List_Table extends WP_List_Table {
 	protected function compare_integers( stdClass $a, stdClass $b ): int {
 		$property = $this->comparison_property;
 		if ( (int) $a->$property > (int) $b->$property ) {
-			return 1 * $this->sort_order;
+			return $this->sort_order;
 		} elseif ( (int) $a->$property < (int) $b->$property ) {
-			return - 1 * $this->sort_order;
+			return - $this->sort_order;
 		} else {
 			return 0;
 		}
