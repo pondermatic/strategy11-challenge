@@ -20,8 +20,9 @@ class Images {
 	 * Returns an SVG logo for this plugin.
 	 *
 	 * @since 1.0.0
+	 * @param array $attributes Image attributes.
 	 */
-	public static function svg_logo( $attributes = [] ): string {
+	public static function svg_logo( array $attributes = [] ): string {
 		$defaults   = [
 			'height' => 18,
 			'width'  => 18,
