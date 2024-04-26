@@ -121,9 +121,7 @@ class Admin {
 		$refresh_url = get_admin_url() . "admin.php?page=$this->menu_slug" . $order_by . $order;
 		if ( isset( $_GET['action'] ) && $_GET['action'] === 'refresh' ) {
 			Core::$challenge_api->clear_cached_response();
-			wp_redirect(
-				wp_sanitize_redirect( $refresh_url )
-			);
+			wp_redirect( $refresh_url );
 			exit;
 		}
 
