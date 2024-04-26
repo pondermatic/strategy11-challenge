@@ -92,7 +92,7 @@ class Data_List_Table extends WP_List_Table {
 	 * @param string $column_name The user object's property name.
 	 */
 	protected function column_default( $item, $column_name ): string {
-		return $item->$column_name;
+		return esc_html( $item->$column_name );
 	}
 
 
@@ -186,10 +186,12 @@ class Data_List_Table extends WP_List_Table {
 	 * @return stdClass[]
 	 */
 	protected function sort_items( array $items ): array {
-		$order            = $_GET['order'] ?? '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$order            = sanitize_text_field( wp_unslash( $_GET['order'] ?? '' ) );
 		$this->sort_order = $order === 'desc' ? - 1 : 1;
 
-		$orderby = sanitize_text_field( $_GET['orderby'] ?? '' );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$orderby = sanitize_text_field( wp_unslash( $_GET['orderby'] ?? '' ) );
 		switch ( $orderby ) {
 			case 'date':
 				$this->comparison_property = 'date';

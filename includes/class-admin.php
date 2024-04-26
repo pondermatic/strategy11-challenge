@@ -129,40 +129,65 @@ class Admin {
 	 * @since 1.0.1
 	 */
 	public function render_page(): void {
-		$order_by    = isset( $_GET['orderby'] ) ? '&orderby=' . sanitize_text_field( $_GET['orderby'] ) : '';
-		$order       = isset( $_GET['order'] ) ? '&order=' . sanitize_text_field( $_GET['order'] ) : '';
-		$refresh_url = get_admin_url() . "admin.php?page=$this->menu_slug" . $order_by . $order;
-		if ( isset( $_GET['action'] ) && $_GET['action'] === 'refresh' ) {
+		$query_args = [];
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- nonce not available.
+		if ( isset( $_GET['orderby'] ) ) {
+			$query_args['orderby'] = sanitize_text_field( wp_unslash( $_GET['orderby'] ) );
+		}
+		if ( isset( $_GET['order'] ) ) {
+			$query_args['order'] = sanitize_text_field( wp_unslash( $_GET['order'] ) );
+		}
+		// phpcs:enable
+
+		if (
+			isset( $query_args['refresh'] ) &&
+			Core::$challenge_api->can_clear_cache_response()
+		) {
 			Core::$challenge_api->clear_cached_response();
-			wp_redirect( $refresh_url );
+			wp_safe_redirect( add_query_arg( $query_args ) );
 			exit;
 		}
 
-		$header_text = __( 'Challenge Data', 'pondermatic-strategy11-challenge' );
-		$logo        = Images::svg_logo( [ 'height' => '35', 'width' => '35' ] );
-		$button_text = __( 'Refresh', 'pondermatic-strategy11-challenge' );
-		$refresh_url = Core::$challenge_api->get_clear_nonce_url(
-			esc_attr( "$refresh_url&action=refresh" )
+		$header_text_escaped = esc_html__(
+			'Challenge Data',
+			'pondermatic-strategy11-challenge'
 		);
+		$logo_escaped        = Images::svg_logo(
+			[
+				'height' => '35',
+				'width'  => '35',
+			]
+		);
+		$button_text_escaped = esc_html__(
+			'Refresh',
+			'pondermatic-strategy11-challenge'
+		);
+
+		$query_args['refresh'] = '';
+		$refresh_url_escaped   = Core::$challenge_api->get_clear_nonce_url(
+			add_query_arg( $query_args )
+		);
+
 		$this->list_table->prepare_items();
 		$this->list_table->views();
 		ob_start();
 		$this->list_table->display();
 		$challenge_data = ob_get_clean();
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- All output is escaped.
 		echo <<<HEREDOC
 <div class="psc-wrap">
 	<div class="psc-nav-bar">
 		<div class="psc-logo">
-			$logo
+			$logo_escaped
 		</div>
 		<div class="psc-nav-left">
-			<h1>$header_text</h1>
+			<h1>$header_text_escaped</h1>
 		</div>
 		<div class="psc-nav-middle">
 		</div>
 		<div class="psc-nav-right">
-			<a href="$refresh_url" class="psc-button-primary">$button_text</a>
+			<a href="$refresh_url_escaped" class="psc-button-primary">$button_text_escaped</a>
 		</div>
 	</div>
 	<div class="wrap">
