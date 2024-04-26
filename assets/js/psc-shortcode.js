@@ -104,26 +104,36 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 		);
 
 		let headerHtml = "<tr>";
-		$.each( response.data.headers, function( key, value ) {
-			headerHtml += "<th>" + wp.escapeHtml.escapeHTML( value ) + "</th>";
-		} );
+		$.each(
+			response.data.headers,
+			function( key, value ) {
+				headerHtml += "<th>" + wp.escapeHtml.escapeHTML( value ) + "</th>";
+			}
+		);
 		headerHtml += "</tr>";
 		pscDisplay.find( '.psc-table thead' ).append( headerHtml );
 
-		$.each( response.data.rows, function( rowNum, row ) {
-			let rowHtml = '<tr>';
-			$.each( row, function( key, value ) {
-				if ( typeof value !== 'string' ) {
-					value = String( value );
-				}
-				if ( key === 'date' ) {
-					value = wp.date.dateI18n( parseInt( value ) );
-				}
-				rowHtml += '<td>' + wp.escapeHtml.escapeHTML( value ) + '</td>';
-			} )
-			rowHtml += '</tr>';
-			pscDisplay.find( '.psc-table tbody' ).append( rowHtml );
-		} );
+		$.each(
+			response.data.rows,
+			function( rowNum, row ) {
+				let rowHtml = '<tr>';
+				$.each(
+					row,
+					function( key, value ) {
+						if ( typeof value !== 'string' ) {
+							value = String( value );
+						}
+						if ( key === 'date' ) {
+							value = wp.date.dateI18n( parseInt( value ) );
+						}
+						rowHtml += '<td>' + wp.escapeHtml.escapeHTML( value ) + '</td>';
+					}
+				)
+				// phpcs:ignore Generic.Formatting.MultipleStatementAlignment.NotSameWarning
+				rowHtml += '</tr>';
+				pscDisplay.find( '.psc-table tbody' ).append( rowHtml );
+			}
+		);
 	}
 
 	/**
@@ -135,9 +145,11 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	function fetchData( url ) {
 		wp.apiRequest.transport( url )
 			.done( display )
-			.fail( function( jqXHR, textStatus, errorThrown ) {
-				console.error( jqXHR, textStatus, errorThrown );
-			} );
+			.fail(
+				function( jqXHR, textStatus, errorThrown ) {
+					console.error( jqXHR, textStatus, errorThrown );
+				}
+			);
 	}
 
 	/**

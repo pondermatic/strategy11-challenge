@@ -72,8 +72,8 @@ class Shortcode {
 	protected function is_shortcode_used( string $shortcode ): bool {
 		global $post;
 		return is_singular() &&
-			   is_a( $post, 'WP_Post' ) &&
-			   has_shortcode( $post->post_content, $shortcode );
+			is_a( $post, 'WP_Post' ) &&
+			has_shortcode( $post->post_content, $shortcode );
 	}
 
 	/**

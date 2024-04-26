@@ -53,9 +53,12 @@ class Admin {
 		 *
 		 * @see wp-admin/admin.php `do_action( "load-{$page_hook}" );`
 		 */
-		add_action( 'load-toplevel_page_pondermatic-strategy11-challenge', function () {
-			$this->list_table = new Data_List_Table();
-		} );
+		add_action(
+			'load-toplevel_page_pondermatic-strategy11-challenge',
+			function () {
+				$this->list_table = new Data_List_Table();
+			}
+		);
 	}
 
 	/**
@@ -70,10 +73,15 @@ class Admin {
 			capability: 'manage_options',
 			menu_slug: $this->menu_slug,
 			callback: [ $this, 'render_page' ],
-			icon_url: 'data:image/svg+xml;base64,' . base64_encode( Images::svg_logo( [
-				'fill'   => '#a0a5aa',
-				'orange' => '#a0a5aa',
-			] ) ),
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+			icon_url: 'data:image/svg+xml;base64,' . base64_encode(
+				Images::svg_logo(
+					[
+						'fill'   => '#a0a5aa',
+						'orange' => '#a0a5aa',
+					]
+				)
+			),
 			position: 29,
 		);
 	}

@@ -169,9 +169,11 @@ class Data_List_Table extends WP_List_Table {
 		foreach ( $this->response->data->rows as $row ) {
 			$this->items[] = $row;
 		}
-		$this->set_pagination_args( [
-			'total_items' => count( $this->items ),
-		] );
+		$this->set_pagination_args(
+			[
+				'total_items' => count( $this->items ),
+			]
+		);
 
 		$this->items = $this->sort_items( $this->items );
 	}
