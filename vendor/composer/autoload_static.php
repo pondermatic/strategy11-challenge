@@ -13,7 +13,7 @@ class ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd
         'Pondermatic\\Strategy11\\Challenge\\Challenge_API' => __DIR__ . '/../..' . '/includes/class-challenge-api.php',
         'Pondermatic\\Strategy11\\Challenge\\Core' => __DIR__ . '/../..' . '/includes/class-core.php',
         'Pondermatic\\Strategy11\\Challenge\\Data_List_Table' => __DIR__ . '/../..' . '/includes/class-data-list-table.php',
-        'Pondermatic\\Strategy11\\Challenge\\Images' => __DIR__ . '/../..' . '/includes/Images.php',
+        'Pondermatic\\Strategy11\\Challenge\\Images' => __DIR__ . '/../..' . '/includes/class-images.php',
         'Pondermatic\\Strategy11\\Challenge\\Shortcode' => __DIR__ . '/../..' . '/includes/class-shortcode.php',
         'Pondermatic\\Strategy11\\Challenge\\View_Data' => __DIR__ . '/../..' . '/includes/class-view-data.php',
     );
