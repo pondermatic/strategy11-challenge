@@ -8,6 +8,6 @@
 
 use Pondermatic\Strategy11Challenge\PHPUnit\Bootstrap;
 
-require 'class-bootstrap.php';
+require 'Bootstrap.php';
 
 new Bootstrap();
