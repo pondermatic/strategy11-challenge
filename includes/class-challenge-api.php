@@ -8,6 +8,9 @@
 
 namespace Pondermatic\Strategy11\Challenge;
 
+use Exception;
+use Opis\JsonSchema\Errors\ErrorFormatter;
+use Opis\JsonSchema\Validator;
 use stdClass;
 use WP_Error;
 
@@ -104,19 +107,24 @@ class Challenge_API {
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
+
 		$challenge_response = json_decode( $response['body'], associative: false );
-		// @todo Validate or sanitize challenge data using a schema.
 		$json_error         = json_last_error();
-		if ( $json_error === JSON_ERROR_NONE ) {
-			set_site_transient(
-				$this->get_transient_name(),
-				wp_json_encode( $challenge_response ),
-				HOUR_IN_SECONDS
-			);
-			return $challenge_response;
-		} else {
+		if ( $json_error !== JSON_ERROR_NONE ) {
 			return new WP_Error( $json_error, json_last_error_msg() );
 		}
+
+		$validation_result = $this->validate_json_data_opis( $challenge_response );
+		if ( is_wp_error( $validation_result ) ) {
+			return $validation_result;
+		}
+
+		set_site_transient(
+			$this->get_transient_name(),
+			wp_json_encode( $challenge_response ),
+			HOUR_IN_SECONDS
+		);
+		return $challenge_response;
 	}
 
 	/**
@@ -183,5 +191,38 @@ class Challenge_API {
 				'permission_callback' => '__return_true', // Can be used when logged out or in.
 			)
 		);
+	}
+
+	/**
+	 * Returns true if the given JSON data is valid according to a schema, else false.
+	 *
+	 * @since 1.0.1
+	 * @param stdClass $json_data The data to validate.
+	 * @return bool|WP_Error
+	 */
+	protected function validate_json_data_opis( stdClass $json_data ): bool|WP_Error {
+		$validator = new Validator();
+		$validator->resolver()->registerFile(
+			'https://strategy11.com/schemas/users',
+			__DIR__ . '/../schemas/users.json'
+		);
+		try {
+			$result = $validator->validate( $json_data, 'https://strategy11.com/schemas/users' );
+		} catch ( Exception $exception ) {
+			// Opis\JsonSchema\Validator does not set the exception code,
+			// which causes WordPress to return an empty WP_Error object.
+			return new WP_Error( 1, $exception->getMessage() );
+		}
+		if ( $result->isValid() ) {
+			return true;
+		} else {
+			$message    = __(
+				'The fetched user data did not pass JSON schema validation tests.',
+				'pondermatic-strategy11-challenge'
+			);
+			$formatter  = new ErrorFormatter();
+			$error_data = $formatter->format( error: $result->error(), multiple: false );
+			return new WP_Error( 1, $message, $error_data );
+		}
 	}
 }

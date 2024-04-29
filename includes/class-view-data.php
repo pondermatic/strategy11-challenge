@@ -48,6 +48,7 @@ class View_Data {
 		return <<<HEREDOC
 <div id="psc-display">
 	<h2 class="psc-table-title"></h2>
+	<p id="psc-notices"></p>
 	<table class="psc-table">
 		<thead></thead>
 		<tbody></tbody>

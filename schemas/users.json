@@ -1,0 +1,84 @@
+{
+  "$id": "https://strategy11.com/schemas/users",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Users Table",
+  "description": "Result from calling https://api.strategy11.com/wp-json/challenge/v1/1",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Table title.",
+      "minLength": 1
+    },
+    "data": {
+      "type": "object",
+      "description": "Table data.",
+      "properties": {
+        "headers": {
+          "type": "array",
+          "description": "Table headers",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 5,
+          "maxItems": 5
+        },
+        "rows": {
+          "type": "object",
+          "description": "Zero or more user objects.",
+          "additionalProperties": {
+            "$ref": "#/$defs/user"
+          }
+        }
+      },
+      "required": [
+        "headers",
+        "rows"
+      ]
+    }
+  },
+  "required": [
+    "title",
+    "data"
+  ],
+  "$defs": {
+    "user": {
+      "$id": "https://strategy11.com/schemas/user",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The person's unique identifier.",
+          "uniqueItems": true
+        },
+        "fname": {
+          "type": "string",
+          "description": "The person's first name."
+        },
+        "lname": {
+          "type": "string",
+          "description": "The person's last name."
+        },
+        "email": {
+          "type": "string",
+          "description": "The person's email address.",
+          "format": "email"
+        },
+        "date": {
+          "description": "A Unix timestamp.",
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "fname",
+        "lname",
+        "email",
+        "date"
+      ]
+    }
+  }
+}
