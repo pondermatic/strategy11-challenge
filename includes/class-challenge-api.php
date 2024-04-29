@@ -96,8 +96,7 @@ class Challenge_API {
 	public function get_challenge_response_body(): WP_Error|stdClass {
 		$cached_value = get_site_transient( $this->get_transient_name() );
 		if ( $cached_value !== false ) {
-			$cached_value = json_decode( $cached_value );
-			return $cached_value->response;
+			return json_decode( $cached_value );
 		}
 
 		/* @noinspection HttpUrlsUsage */
@@ -109,12 +108,9 @@ class Challenge_API {
 		// @todo Validate or sanitize challenge data using a schema.
 		$json_error         = json_last_error();
 		if ( $json_error === JSON_ERROR_NONE ) {
-			$cached_value           = new stdClass();
-			$cached_value->response = $challenge_response;
-			$cached_value->time     = time();
 			set_site_transient(
 				$this->get_transient_name(),
-				wp_json_encode( $cached_value ),
+				wp_json_encode( $challenge_response ),
 				HOUR_IN_SECONDS
 			);
 			return $challenge_response;
