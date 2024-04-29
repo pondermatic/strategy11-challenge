@@ -94,6 +94,9 @@ class Challenge_API {
 	/**
 	 * Returns data from a request to the Strategy11 challenge API.
 	 *
+	 * Data is cached for one hour before making additional requests
+	 * to the remote API.
+	 *
 	 * @since 1.0.0
 	 */
 	public function get_challenge_response_body(): WP_Error|stdClass {
@@ -102,8 +105,7 @@ class Challenge_API {
 			return json_decode( $cached_value );
 		}
 
-		/* @noinspection HttpUrlsUsage */
-		$response = wp_remote_get( 'http://api.strategy11.com/wp-json/challenge/v1/1' );
+		$response = wp_remote_get( 'https://api.strategy11.com/wp-json/challenge/v1/1' );
 		if ( is_wp_error( $response ) ) {
 			return $response;
 		}
@@ -177,7 +179,7 @@ class Challenge_API {
 	 * @since 1.0.0
 	 */
 	public function get_this_endpoint(): string {
-		return get_rest_url( null, Core::ROUTE_NAMESPACE . self::ROUTE );
+		return get_rest_url( path: Core::ROUTE_NAMESPACE . self::ROUTE );
 	}
 
 	/**
