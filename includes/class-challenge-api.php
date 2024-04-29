@@ -227,11 +227,15 @@ class Challenge_API {
 			__DIR__ . '/../schemas/users.json'
 		);
 		try {
-			$result = $validator->validate( $json_data, 'https://strategy11.com/schemas/users' );
+			$result = $validator->validate(
+				$json_data,
+				'https://strategy11.com/schemas/users'
+			);
 		} catch ( Exception $exception ) {
-			// Opis\JsonSchema\Validator does not set the exception code,
-			// which causes WordPress to return an empty WP_Error object.
-			return new WP_Error( 1, $exception->getMessage() );
+			return new WP_Error(
+				'json_schema_validation_failed',
+				$exception->getMessage()
+			);
 		}
 		if ( $result->isValid() ) {
 			return true;
@@ -242,7 +246,11 @@ class Challenge_API {
 			);
 			$formatter  = new ErrorFormatter();
 			$error_data = $formatter->format( error: $result->error(), multiple: false );
-			return new WP_Error( 1, $message, $error_data );
+			return new WP_Error(
+				'json_schema_validation_error',
+				$message,
+				$error_data
+			);
 		}
 	}
 }

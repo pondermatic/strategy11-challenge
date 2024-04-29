@@ -65,14 +65,18 @@ class Data_List_Table extends WP_List_Table {
 		$response = Core::$challenge_api->get_challenge_response_body();
 
 		if ( is_wp_error( $response ) ) {
-			$message                     = $response->get_error_message();
-			$formatted                   = $response->get_error_data();
-			$this->error_notifications[] = sprintf(
-				'%s<br>JSON path: "%s"<br>message: "%s"',
-				esc_html( $message ),
-				key( $formatted ),
-				current( $formatted )
-			);
+			$message = $response->get_error_message();
+			if ( $response->get_error_code() === 'json_schema_validation_error' ) {
+				$formatted                   = $response->get_error_data();
+				$this->error_notifications[] = sprintf(
+					'%s<br>JSON path: "%s"<br>message: "%s"',
+					esc_html( $message ),
+					key( $formatted ),
+					current( $formatted )
+				);
+			} else {
+				$this->error_notifications[] = esc_html( $message );
+			}
 			add_action( 'admin_notices', [ $this, 'output_admin_notices' ] );
 			$response = Core::$challenge_api->get_empty_response();
 		}
