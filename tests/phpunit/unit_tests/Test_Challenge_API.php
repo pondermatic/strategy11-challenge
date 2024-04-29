@@ -1,9 +1,10 @@
 <?php
 
-namespace Pondermatic\Strategy11\Challenge\PHPUnit;
+namespace Pondermatic\Strategy11Challenge\PHPUnit\unit_tests;
 
+use Pondermatic\Strategy11Challenge\Challenge_API;
+use Pondermatic\Strategy11Challenge\PHPUnit\Mock_Data;
 use Pondermatic\WordpressPhpunitFramework\Test_Case;
-use Pondermatic\Strategy11\Challenge\Challenge_API;
 
 class Test_Challenge_API extends Test_Case {
 	/**

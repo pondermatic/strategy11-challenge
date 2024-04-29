@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-namespace Pondermatic\Strategy11\Challenge\PHPUnit;
+namespace Pondermatic\Strategy11Challenge\PHPUnit;
 
 use Pondermatic\WordpressPhpunitFramework\Bootstrap as FrameworkBootstrap;
 

@@ -37,11 +37,9 @@
     ]
   },
   "autoload-dev": {
-    "classmap": [
-      "tests/phpunit/"
-    ],
     "psr-4": {
-      "PHPUnit\\": "vendor/phpunit/phpunit/src/"
+      "PHPUnit\\": "vendor/phpunit/phpunit/src/",
+      "Pondermatic\\Strategy11Challenge\\PHPUnit\\": "tests/phpunit"
     }
   },
   "repositories": [

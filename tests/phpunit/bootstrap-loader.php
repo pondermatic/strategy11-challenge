@@ -6,9 +6,8 @@
  * @version 1.0.0
  */
 
-use Pondermatic\Strategy11\Challenge\PHPUnit\Bootstrap;
+use Pondermatic\Strategy11Challenge\PHPUnit\Bootstrap;
 
 require 'class-bootstrap.php';
 
-/* @noinspection PhpExpressionResultUnusedInspection */
 new Bootstrap();

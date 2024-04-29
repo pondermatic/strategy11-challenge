@@ -6,12 +6,13 @@
  * @version 1.0.1
  */
 
-namespace Pondermatic\Strategy11\Challenge\PHPUnit;
+namespace Pondermatic\Strategy11Challenge\PHPUnit\unit_tests;
 
 use DOMDocument;
+use Pondermatic\Strategy11Challenge\Admin;
+use Pondermatic\Strategy11Challenge\Data_List_Table;
+use Pondermatic\Strategy11Challenge\PHPUnit\Mock_Data;
 use Pondermatic\WordpressPhpunitFramework\Test_Case;
-use Pondermatic\Strategy11\Challenge\Admin;
-use Pondermatic\Strategy11\Challenge\Data_List_Table;
 
 /**
  * Tests methods in the Admin and Data_List_Table classes.

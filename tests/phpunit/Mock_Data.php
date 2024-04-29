@@ -6,7 +6,7 @@
  * @version 1.0.1
  */
 
-namespace Pondermatic\Strategy11\Challenge\PHPUnit;
+namespace Pondermatic\Strategy11Challenge\PHPUnit;
 
 /**
  * Mock users data.
