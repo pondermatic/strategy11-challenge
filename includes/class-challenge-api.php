@@ -119,7 +119,7 @@ class Challenge_API {
 			return new WP_Error( $json_error, json_last_error_msg() );
 		}
 
-		$validation_result = $this->validate_json_data_opis( $challenge_response );
+		$validation_result = $this->validate_json_data( $challenge_response );
 		if ( is_wp_error( $validation_result ) ) {
 			return $validation_result;
 		}
@@ -220,7 +220,7 @@ class Challenge_API {
 	 * @param stdClass $json_data The data to validate.
 	 * @return bool|WP_Error
 	 */
-	protected function validate_json_data_opis( stdClass $json_data ): bool|WP_Error {
+	protected function validate_json_data( stdClass $json_data ): bool|WP_Error {
 		$validator = new Validator();
 		$validator->resolver()->registerFile(
 			'https://strategy11.com/schemas/users',
