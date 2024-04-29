@@ -139,14 +139,21 @@ class Admin {
 		}
 		// phpcs:enable
 
+		/**
+		 * Nonce is verified by the Challenge_API::can_clear_cache_response() function.
+		 * phpcs:disable WordPress.Security.NonceVerification.Recommended
+		 */
 		if (
-			isset( $query_args['refresh'] ) &&
+			isset( $_GET['refresh'] ) &&
 			Core::$challenge_api->can_clear_cache_response()
 		) {
 			Core::$challenge_api->clear_cached_response();
-			wp_safe_redirect( add_query_arg( $query_args ) );
+			wp_safe_redirect(
+				add_query_arg( $query_args, remove_query_arg( 'refresh' ) )
+			);
 			exit;
 		}
+		// phpcs:enable
 
 		$header_text_escaped = esc_html__(
 			'Challenge Data',
