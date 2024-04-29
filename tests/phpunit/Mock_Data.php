@@ -1,9 +1,19 @@
 <?php
+/**
+ * Mock_Data class definition.
+ *
+ * @since 1.0.1
+ * @version 1.0.1
+ */
 
 namespace Pondermatic\Strategy11\Challenge\PHPUnit;
 
+/**
+ * Mock users data.
+ *
+ * @since 1.0.1
+ */
 class Mock_Data {
-
 	/**
 	 * The HTTP response body to return.
 	 *
