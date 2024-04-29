@@ -157,6 +157,21 @@ class Challenge_API {
 	}
 
 	/**
+	 * Returns an empty response object.
+	 *
+	 * @since 1.0.1
+	 * @return stdClass
+	 */
+	public function get_empty_response(): stdClass {
+		$table                = new stdClass();
+		$table->title         = '';
+		$table->data          = new stdClass();
+		$table->data->headers = [];
+		$table->data->rows    = new stdClass();
+		return $table;
+	}
+
+	/**
 	 * Returns the URL for this plugin's challenge API endpoint.
 	 *
 	 * @since 1.0.0

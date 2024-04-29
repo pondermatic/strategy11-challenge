@@ -68,11 +68,17 @@ class Core {
 				'wp-api',
 				'wp-date',
 				'wp-escape-html',
+				'wp-i18n',
 			],
 			ver: self::VERSION,
 			args: [
 				'in_footer' => false,
 			]
+		);
+		wp_set_script_translations(
+			'psc-shortcode',
+			'pondermatic-strategy11-challenge',
+			dirname( __DIR__ ) . '/languages'
 		);
 	}
 

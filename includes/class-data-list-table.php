@@ -20,6 +20,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class Data_List_Table extends WP_List_Table {
 	/**
+	 * Notices to be displayed on the admin page.
+	 *
+	 * @since 1.0.1
+	 * @var string[]
+	 */
+	protected array $error_notifications = [];
+
+	/**
 	 * The response property used to compare two response objects during sorting.
 	 *
 	 * @since 1.0.0
@@ -52,10 +60,21 @@ class Data_List_Table extends WP_List_Table {
 	 */
 	public function __construct( $args = array() ) {
 		parent::__construct( $args );
+		$this->items = [];
 
 		$response = Core::$challenge_api->get_challenge_response_body();
+
 		if ( is_wp_error( $response ) ) {
-			$response = new stdClass();
+			$message                     = $response->get_error_message();
+			$formatted                   = $response->get_error_data();
+			$this->error_notifications[] = sprintf(
+				'%s<br>JSON path: "%s"<br>message: "%s"',
+				esc_html( $message ),
+				key( $formatted ),
+				current( $formatted )
+			);
+			add_action( 'admin_notices', [ $this, 'output_admin_notices' ] );
+			$response = Core::$challenge_api->get_empty_response();
 		}
 		$this->response = $response;
 	}
@@ -157,6 +176,18 @@ class Data_List_Table extends WP_List_Table {
 			'email' => [ 'email' ],
 			'date'  => [ 'date' ],
 		];
+	}
+
+	/**
+	 * Sends captured errors to the admin page.
+	 *
+	 * @since 1.0.1
+	 * @return void
+	 */
+	public function output_admin_notices(): void {
+		foreach ( $this->error_notifications as $error ) {
+			wp_admin_notice( $error, [ 'type' => 'error' ] );
+		}
 	}
 
 	/**

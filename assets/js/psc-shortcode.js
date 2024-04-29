@@ -67,6 +67,7 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	 * @property {obj} apiRequest Functions from wp-includes/js/api-=request.js.
 	 * @property {Module} datedate Functions from wp-includes/js/dist/date.js.
 	 * @property {Module} escapeHtml Functions from wp-includes/js/dist/escape-html.js.
+	 * @property {Module} i18n Functions from wp-includes/js/dist/i18n.js.
 	 */
 
 	/**
@@ -89,6 +90,13 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 	 *
 	 * @typedef wp.escapeHtml
 	 * @property {function} escapeHTML Replaces '<' and '&' characters with HTML entities.
+	 */
+
+	/**
+	 * A collection of WordPress internationalization functions.
+	 *
+	 * @typedef wp.i18n
+	 * @property {function} i18n Retrieves the translation of text.
 	 */
 
 	/**
@@ -146,8 +154,9 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 		wp.apiRequest.transport( url )
 			.done( display )
 			.fail(
-				function( jqXHR, textStatus, errorThrown ) {
-					console.error( jqXHR, textStatus, errorThrown );
+				function( jqXHR ) {
+					let notice = wp.escapeHtml.escapeHTML( jqXHR.responseJSON.message );
+					$( '#psc-notices' ).html( notice );
 				}
 			);
 	}
