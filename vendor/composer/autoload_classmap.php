@@ -7,12 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Pondermatic\\Strategy11\\Challenge\\Admin' => $baseDir . '/includes/class-admin.php',
-    'Pondermatic\\Strategy11\\Challenge\\CLI_Clear_Cached_Response' => $baseDir . '/includes/class-cli-clear-cached-response.php',
-    'Pondermatic\\Strategy11\\Challenge\\Challenge_API' => $baseDir . '/includes/class-challenge-api.php',
-    'Pondermatic\\Strategy11\\Challenge\\Core' => $baseDir . '/includes/class-core.php',
-    'Pondermatic\\Strategy11\\Challenge\\Data_List_Table' => $baseDir . '/includes/class-data-list-table.php',
-    'Pondermatic\\Strategy11\\Challenge\\Images' => $baseDir . '/includes/class-images.php',
-    'Pondermatic\\Strategy11\\Challenge\\Shortcode' => $baseDir . '/includes/class-shortcode.php',
-    'Pondermatic\\Strategy11\\Challenge\\View_Data' => $baseDir . '/includes/class-view-data.php',
+    'Pondermatic\\Strategy11Challenge\\Admin' => $baseDir . '/includes/class-admin.php',
+    'Pondermatic\\Strategy11Challenge\\CLI_Clear_Cached_Response' => $baseDir . '/includes/class-cli-clear-cached-response.php',
+    'Pondermatic\\Strategy11Challenge\\Challenge_API' => $baseDir . '/includes/class-challenge-api.php',
+    'Pondermatic\\Strategy11Challenge\\Core' => $baseDir . '/includes/class-core.php',
+    'Pondermatic\\Strategy11Challenge\\Data_List_Table' => $baseDir . '/includes/class-data-list-table.php',
+    'Pondermatic\\Strategy11Challenge\\Images' => $baseDir . '/includes/class-images.php',
+    'Pondermatic\\Strategy11Challenge\\Shortcode' => $baseDir . '/includes/class-shortcode.php',
+    'Pondermatic\\Strategy11Challenge\\View_Data' => $baseDir . '/includes/class-view-data.php',
 );

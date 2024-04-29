@@ -32,14 +32,14 @@ class ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Pondermatic\\Strategy11\\Challenge\\Admin' => __DIR__ . '/../..' . '/includes/class-admin.php',
-        'Pondermatic\\Strategy11\\Challenge\\CLI_Clear_Cached_Response' => __DIR__ . '/../..' . '/includes/class-cli-clear-cached-response.php',
-        'Pondermatic\\Strategy11\\Challenge\\Challenge_API' => __DIR__ . '/../..' . '/includes/class-challenge-api.php',
-        'Pondermatic\\Strategy11\\Challenge\\Core' => __DIR__ . '/../..' . '/includes/class-core.php',
-        'Pondermatic\\Strategy11\\Challenge\\Data_List_Table' => __DIR__ . '/../..' . '/includes/class-data-list-table.php',
-        'Pondermatic\\Strategy11\\Challenge\\Images' => __DIR__ . '/../..' . '/includes/class-images.php',
-        'Pondermatic\\Strategy11\\Challenge\\Shortcode' => __DIR__ . '/../..' . '/includes/class-shortcode.php',
-        'Pondermatic\\Strategy11\\Challenge\\View_Data' => __DIR__ . '/../..' . '/includes/class-view-data.php',
+        'Pondermatic\\Strategy11Challenge\\Admin' => __DIR__ . '/../..' . '/includes/class-admin.php',
+        'Pondermatic\\Strategy11Challenge\\CLI_Clear_Cached_Response' => __DIR__ . '/../..' . '/includes/class-cli-clear-cached-response.php',
+        'Pondermatic\\Strategy11Challenge\\Challenge_API' => __DIR__ . '/../..' . '/includes/class-challenge-api.php',
+        'Pondermatic\\Strategy11Challenge\\Core' => __DIR__ . '/../..' . '/includes/class-core.php',
+        'Pondermatic\\Strategy11Challenge\\Data_List_Table' => __DIR__ . '/../..' . '/includes/class-data-list-table.php',
+        'Pondermatic\\Strategy11Challenge\\Images' => __DIR__ . '/../..' . '/includes/class-images.php',
+        'Pondermatic\\Strategy11Challenge\\Shortcode' => __DIR__ . '/../..' . '/includes/class-shortcode.php',
+        'Pondermatic\\Strategy11Challenge\\View_Data' => __DIR__ . '/../..' . '/includes/class-view-data.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
