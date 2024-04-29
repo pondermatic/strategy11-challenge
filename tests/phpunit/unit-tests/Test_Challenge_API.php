@@ -58,12 +58,13 @@ class Test_Challenge_API extends Test_Case {
 	 * @since 1.0.0
 	 */
 	public function test_remote_request_frequency(): void {
+		$filter_count = did_filter( 'pre_http_request' );
 		new Mock_Data();
 
 		// After the cached data is cleared, the next call should make one request to
 		// the remote API.
 		$this->api->get_challenge_response_body();
-		$actual = did_filter( 'pre_http_request' );
+		$actual = did_filter( 'pre_http_request' ) - $filter_count;
 		$this->assertEquals(
 			expected: 1,
 			actual: $actual,
@@ -77,7 +78,7 @@ class Test_Challenge_API extends Test_Case {
 		$this->api->get_challenge_response_body();
 		$this->assertEquals(
 			expected: 1,
-			actual: did_filter( 'pre_http_request' ),
+			actual: did_filter( 'pre_http_request' ) - $filter_count,
 			message: 'Challenge_API::get_challenge_response_body() should NOT ' .
 					 'make a remote API request before the cached data has expired.',
 		);
@@ -88,7 +89,7 @@ class Test_Challenge_API extends Test_Case {
 		$this->api->get_challenge_response_body();
 		$this->assertEquals(
 			expected: 2,
-			actual: did_filter( 'pre_http_request' ),
+			actual: did_filter( 'pre_http_request' ) - $filter_count,
 			message: 'Challenge_API::get_challenge_response_body() should have ' .
 					 'have called WP_Http::request() after the cached data expired.'
 		);
