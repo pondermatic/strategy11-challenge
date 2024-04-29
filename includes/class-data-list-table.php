@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-namespace Pondermatic\Strategy11\Challenge;
+namespace Pondermatic\Strategy11Challenge;
 
 use stdClass;
 use WP_List_Table;

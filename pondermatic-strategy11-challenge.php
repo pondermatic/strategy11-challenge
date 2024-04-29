@@ -30,11 +30,9 @@
  * Pondermatic Strategy11 Challenge. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Pondermatic\Strategy11\Challenge;
-
 defined( 'ABSPATH' ) || exit;
 
 // Register an autoloader for this plugin.
 require_once __DIR__ . '/vendor/autoload.php';
 
-new Core();
+new Pondermatic\Strategy11Challenge\Core();
