@@ -94,7 +94,64 @@ class Test_Challenge_API extends Test_Case {
 		);
 	}
 
-//	public function test_returned_data() {
-//
-//	}
+	/**
+	 * Test that JSON validation is working.
+	 *
+	 * @since 1.0.1
+	 * @return void
+	 */
+	public function test_json_schema_validation(): void {
+		$mock_data = new Mock_Data();
+
+		// Valid data.
+		$body   = $mock_data->get_default_body();
+		$result = $this->api->get_challenge_response_body();
+		$this->assertEqualsCanonicalizing( json_decode( json_encode( $body ) ), $result );
+
+		$functions = [
+			'/title, The data (integer) must match the type: string'             =>
+				function ( $body ) {
+					$body['title'] = 96;
+					return $body;
+				},
+			'/data/rows/1/fname, The data (integer) must match the type: string' =>
+				function ( $body ) {
+					$body['data']['rows']['1']['fname'] = 100;
+					return $body;
+				},
+			'/data/rows/1/id, The data (string) must match the type: integer'    =>
+				function ( $body ) {
+					$body['data']['rows']['1']['id'] = '71';
+					return $body;
+				},
+			'/data/rows/1, The required properties (id) are missing'             =>
+				function ( $body ) {
+					unset( $body['data']['rows']['1']['id'] );
+					return $body;
+				},
+		];
+
+		$error_message = __(
+			'The fetched user data did not pass JSON schema validation tests.',
+			'pondermatic-strategy11-challenge'
+		);
+
+		foreach ( $functions as $message => $function ) {
+			$this->api->clear_cached_response();
+			$body = $mock_data->get_default_body();
+
+			$body = call_user_func( $function, $body );
+
+			$mock_data->set_body( $body );
+			$result = $this->api->get_challenge_response_body();
+			$this->assertWPError( $result );
+
+			$actual_message = $result->get_error_message();
+			$this->assertEquals( $error_message, $actual_message, $message );
+
+			$formatted      = $result->get_error_data();
+			$actual_message = key( $formatted ) . ', ' . current( $formatted );
+			$this->assertEquals( $message, $actual_message );
+		}
+	}
 }
