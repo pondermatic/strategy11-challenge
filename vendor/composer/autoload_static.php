@@ -6,6 +6,30 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd
 {
+    public static $prefixLengthsPsr4 = array (
+        'O' => 
+        array (
+            'Opis\\Uri\\' => 9,
+            'Opis\\String\\' => 12,
+            'Opis\\JsonSchema\\' => 16,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Opis\\Uri\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opis/uri/src',
+        ),
+        'Opis\\String\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opis/string/src',
+        ),
+        'Opis\\JsonSchema\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/opis/json-schema/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Pondermatic\\Strategy11\\Challenge\\Admin' => __DIR__ . '/../..' . '/includes/class-admin.php',
@@ -21,6 +45,8 @@ class ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit57e5c614c231294bcf0f9496d79c9ebd::$classMap;
 
         }, null, ClassLoader::class);
