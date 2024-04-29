@@ -1,4 +1,10 @@
 <?php
+/**
+ * Test_Challenge_API class definition.
+ *
+ * @since 1.0.0
+ * @version 1.0.1
+ */
 
 namespace Pondermatic\Strategy11Challenge\PHPUnit\unit_tests;
 
@@ -6,9 +12,17 @@ use Pondermatic\Strategy11Challenge\Challenge_API;
 use Pondermatic\Strategy11Challenge\PHPUnit\Mock_Data;
 use Pondermatic\WordpressPhpunitFramework\Test_Case;
 
+/**
+ * Tests features involving the remote API.
+ *
+ * @since 1.0.0
+ */
 class Test_Challenge_API extends Test_Case {
 	/**
+	 * Instance of the Challenge_API class.
+	 *
 	 * @since 1.0.0
+	 * @var Challenge_API
 	 */
 	protected Challenge_API $api;
 
@@ -17,22 +31,32 @@ class Test_Challenge_API extends Test_Case {
 	 * or null to not change the timestamp.
 	 *
 	 * @since 1.0.0
+	 * @var int|null
 	 */
 	protected ?int $timeout = null;
 
 	/**
+	 * The transient key name for caching the response data.
+	 *
 	 * @since 1.0.0
+	 * @var string
 	 */
 	protected string $transient_name;
 
 	/**
+	 * Returns the expiration timeout property if set, else the given value.
+	 *
 	 * @since 1.0.0
+	 * @param mixed $timeout A Unix timestamp of when the cached response should expire.
+	 * @return int|null|false
 	 */
-	public function get_timeout( $timeout ): int|false {
+	public function get_timeout( mixed $timeout ): int|null|false {
 		return $this->timeout ?? $timeout;
 	}
 
 	/**
+	 * This method is called before each test.
+	 *
 	 * @inheritDoc
 	 * @since 1.0.0
 	 */
@@ -43,13 +67,14 @@ class Test_Challenge_API extends Test_Case {
 		// Clear the cache.
 		delete_site_transient( $this->transient_name );
 
-		// Allow the cache expiration to be changed.
-		$option = "_site_transient_timeout_{$this->transient_name}";
 		/**
+		 * Allow the cache expiration to be changed.
+		 *
 		 * @use self::timeout
 		 * @see get_site_transient()
 		 * @see get_network_option()
 		 */
+		$option = "_site_transient_timeout_{$this->transient_name}";
 		add_filter( "pre_site_option_{$option}", [ $this, 'get_timeout' ] );
 	}
 
@@ -70,7 +95,7 @@ class Test_Challenge_API extends Test_Case {
 			expected: 1,
 			actual: $actual,
 			message: 'Challenge_API::get_challenge_response_body() should make ' .
-					 "one remote API request when the cached data is cleared."
+				'one remote API request when the cached data is cleared.'
 		);
 
 		// A call made 59 minutes and 55 seconds after the data was cached
@@ -81,7 +106,7 @@ class Test_Challenge_API extends Test_Case {
 			expected: 1,
 			actual: did_filter( 'pre_http_request' ) - $filter_count,
 			message: 'Challenge_API::get_challenge_response_body() should NOT ' .
-					 'make a remote API request before the cached data has expired.',
+				'make a remote API request before the cached data has expired.',
 		);
 
 		// After the cached data has expired, the next call should make one
@@ -92,7 +117,7 @@ class Test_Challenge_API extends Test_Case {
 			expected: 2,
 			actual: did_filter( 'pre_http_request' ) - $filter_count,
 			message: 'Challenge_API::get_challenge_response_body() should have ' .
-					 'have called WP_Http::request() after the cached data expired.'
+				'have called WP_Http::request() after the cached data expired.'
 		);
 	}
 
@@ -108,7 +133,7 @@ class Test_Challenge_API extends Test_Case {
 		// Valid data.
 		$body   = $mock_data->get_default_body();
 		$result = $this->api->get_challenge_response_body();
-		$this->assertEqualsCanonicalizing( json_decode( json_encode( $body ) ), $result );
+		$this->assertEqualsCanonicalizing( json_decode( wp_json_encode( $body ) ), $result );
 
 		$functions = [
 			'/title, The data (integer) must match the type: string'             =>
