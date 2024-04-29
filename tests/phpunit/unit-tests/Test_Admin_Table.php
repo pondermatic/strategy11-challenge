@@ -1,4 +1,10 @@
 <?php
+/**
+ * Test_Admin_Table class definition.
+ *
+ * @since 1.0.1
+ * @version 1.0.1
+ */
 
 namespace Pondermatic\Strategy11\Challenge\PHPUnit;
 
@@ -7,14 +13,25 @@ use Pondermatic\WordpressPhpunitFramework\Test_Case;
 use Pondermatic\Strategy11\Challenge\Admin;
 use Pondermatic\Strategy11\Challenge\Data_List_Table;
 
+/**
+ * Tests methods in the Admin and Data_List_Table classes.
+ *
+ * @since 1.0.1
+ */
 class Test_Admin_Table extends Test_Case {
 	/**
+	 * Instance of the Admin class.
+	 *
 	 * @since 1.0.1
+	 * @var Admin
 	 */
 	protected Admin $admin;
 
 	/**
+	 * Instance of the Data_List_Table class.
+	 *
 	 * @since 1.0.1
+	 * @var Data_List_Table
 	 */
 	protected Data_List_Table $table;
 
@@ -22,7 +39,7 @@ class Test_Admin_Table extends Test_Case {
 	 * Decode named entities that are not defined in XML.
 	 *
 	 * @since 1.0.1
-	 * @param string $string
+	 * @param string $string Subject.
 	 * @return string
 	 */
 	protected function decode_non_xml_named_entities( string $string ): string {
@@ -45,6 +62,8 @@ class Test_Admin_Table extends Test_Case {
 	}
 
 	/**
+	 * This method is called before each test.
+	 *
 	 * @inheritDoc
 	 * @since 1.0.1
 	 */
@@ -60,12 +79,16 @@ class Test_Admin_Table extends Test_Case {
 	}
 
 	/**
+	 * Instantiates and configures the Admin object.
+	 *
 	 * @since 1.0.1
 	 */
 	protected function setup_admin_object(): void {
 		$this->admin = new Admin();
 
 		/**
+		 * Tell Admin object that the current admin page is for our plugin.
+		 *
 		 * @see wp-admin/admin.php `do_action( "load-{$page_hook}" );`
 		 */
 		do_action( 'load-toplevel_page_pondermatic-strategy11-challenge' );
@@ -74,7 +97,10 @@ class Test_Admin_Table extends Test_Case {
 		// wordpress-tests-lib/includes/bootstrap uses PHP system() which displays output.
 		remove_action( 'admin_init', 'wp_admin_headers' );
 		remove_action( 'admin_init', 'send_frame_options_header' );
+
 		/**
+		 * Tell Admin object that the WordPress admin page is initializing.
+		 *
 		 * @see wp-admin/admin.php `do_action( 'admin_init' );`
 		 */
 		do_action( 'admin_init' );
