@@ -53,7 +53,7 @@ class Test_Admin_Table extends Test_Case {
 		preg_match_all( '/&\w.+;/', $string, $matches );
 		$search_replace = [];
 		foreach ( $matches[0] as $match ) {
-			if ( in_array( $match, $xml_named_entities ) ) {
+			if ( in_array( $match, $xml_named_entities, true ) ) {
 				continue;
 			}
 			$search_replace[ $match ] = html_entity_decode( $match );
@@ -69,7 +69,9 @@ class Test_Admin_Table extends Test_Case {
 	 */
 	public function setUp(): void {
 		// Fake a request to this plugin's admin page.
+		// @todo Is there a better way to test a request to our plugin's admin page?
 		global $plugin_page;
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$plugin_page = basename( dirname( __FILE__, 4 ) );
 		$this->go_to( 'wp-admin/admin.php?page=pondermatic-strategy11-challenge' );
 		set_current_screen( 'admin.php' );
@@ -91,6 +93,7 @@ class Test_Admin_Table extends Test_Case {
 		 *
 		 * @see wp-admin/admin.php `do_action( "load-{$page_hook}" );`
 		 */
+		// phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 		do_action( 'load-toplevel_page_pondermatic-strategy11-challenge' );
 
 		// Remove hooked functions that call PHP header() because
