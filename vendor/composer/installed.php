@@ -3,7 +3,7 @@
         'name' => 'pondermatic/strategy11-challenge',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f58d4f34fe96c5e155858872778a2dcc7c6693ce',
+        'reference' => '5590b46eecb335289f904bd3295094cf27af151a',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'pondermatic/strategy11-challenge' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f58d4f34fe96c5e155858872778a2dcc7c6693ce',
+            'reference' => '5590b46eecb335289f904bd3295094cf27af151a',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
