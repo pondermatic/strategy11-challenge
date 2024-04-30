@@ -45,10 +45,6 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/pondermatic/WordPress-Coding-Standards.git"
-    },
-    {
-      "type": "vcs",
       "url": "https://gitlab.com/pondermatic-llc/wordpress/wordpress-coding-standards.git"
     },
     {
@@ -62,7 +58,7 @@
   },
   "require-dev": {
     "pondermatic/composer-archive-project": "^1.0.0",
-    "pondermatic/wordpress-coding-standards": "~1.0",
+    "pondermatic/wordpress-coding-standards": "^1.1.0",
     "pondermatic/wordpress-phpunit-framework": "~1.0",
     "wp-cli/wp-cli": "^2.10"
   },
@@ -83,8 +79,7 @@
     "make-archive": "@composer archive-project --dir=archive --format=zip",
     "make-pot": "wp i18n make-pot . --exclude=tmp",
     "phpcs-config": [
-      "@phpcs --config-set default_standard WordPress-Pondermatic",
-      "@phpcs --config-set installed_paths '../../wp-coding-standards/wpcs,../../phpcompatibility/php-compatibility,../../phpcompatibility/phpcompatibility-paragonie,../../phpcompatibility/phpcompatibility-wp,../../pondermatic/wordpress-coding-standards'"
+      "@phpcs --config-set default_standard WordPress-Pondermatic"
     ],
     "phpcs-errors": "@phpcs --error-severity=1 --warning-severity=6",
     "post-archive-cmd": "@composer dump-autoload",
