@@ -32,14 +32,4 @@ class Bootstrap extends FrameworkBootstrap {
 	 */
 	public function install() {
 	}
-
-	/**
-	 * Manually load the plugin being tested and any dependencies.
-	 *
-	 * @since 1.0.0
-	 */
-	public function load(): void {
-
-		parent::load();
-	}
 }

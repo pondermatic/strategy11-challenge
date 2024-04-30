@@ -40,10 +40,10 @@ class Test_Admin_Table extends Test_Case {
 	 * Decode named entities that are not defined in XML.
 	 *
 	 * @since 1.0.1
-	 * @param string $string Subject.
+	 * @param string $subject Subject.
 	 * @return string
 	 */
-	protected function decode_non_xml_named_entities( string $string ): string {
+	protected function decode_non_xml_named_entities( string $subject ): string {
 		$xml_named_entities = [
 			'&amp;',
 			'&lt;',
@@ -51,7 +51,7 @@ class Test_Admin_Table extends Test_Case {
 			'&apos;',
 			'&quot;',
 		];
-		preg_match_all( '/&\w.+;/', $string, $matches );
+		preg_match_all( '/&\w.+;/', $subject, $matches );
 		$search_replace = [];
 		foreach ( $matches[0] as $match ) {
 			if ( in_array( $match, $xml_named_entities, true ) ) {
@@ -59,7 +59,7 @@ class Test_Admin_Table extends Test_Case {
 			}
 			$search_replace[ $match ] = html_entity_decode( $match );
 		}
-		return str_replace( array_keys( $search_replace ), $search_replace, $string );
+		return str_replace( array_keys( $search_replace ), $search_replace, $subject );
 	}
 
 	/**
@@ -72,8 +72,7 @@ class Test_Admin_Table extends Test_Case {
 		// Fake a request to this plugin's admin page.
 		// @todo Is there a better way to test a request to our plugin's admin page?
 		global $plugin_page;
-		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-		$plugin_page = basename( dirname( __FILE__, 4 ) );
+		$plugin_page = basename( dirname( __DIR__, 3 ) );
 		$this->go_to( 'wp-admin/admin.php?page=pondermatic-strategy11-challenge' );
 		set_current_screen( 'admin.php' );
 
