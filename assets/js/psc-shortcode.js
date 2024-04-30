@@ -30,7 +30,7 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
  * @param {jQuery} $ jQuery library.
  * @param {obj} psc PondermaticStrategy11Challenge namespace.
  */
-( function( $, psc ) {
+( function ( $, psc ) {
 	'use strict';
 
 	/**
@@ -114,7 +114,7 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 		let headerHtml = "<tr>";
 		$.each(
 			response.data.headers,
-			function( key, value ) {
+			function ( key, value ) {
 				headerHtml += "<th>" + wp.escapeHtml.escapeHTML( value ) + "</th>";
 			}
 		);
@@ -123,11 +123,11 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 
 		$.each(
 			response.data.rows,
-			function( rowNum, row ) {
+			function ( rowNum, row ) {
 				let rowHtml = '<tr>';
 				$.each(
 					row,
-					function( key, value ) {
+					function ( key, value ) {
 						if ( typeof value !== 'string' ) {
 							value = String( value );
 						}
@@ -154,7 +154,7 @@ if ( 'undefined' === typeof window.psc.shortcode ) {
 		wp.apiRequest.transport( url )
 			.done( display )
 			.fail(
-				function( jqXHR ) {
+				function ( jqXHR ) {
 					let notice = wp.escapeHtml.escapeHTML( jqXHR.responseJSON.message );
 					$( '#psc-notices' ).html( notice );
 				}
