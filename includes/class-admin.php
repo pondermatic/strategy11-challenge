@@ -181,7 +181,7 @@ class Admin {
 		$this->list_table->display();
 		$challenge_data = ob_get_clean();
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- All output is escaped.
+		// phpcs:disable WordPress.Security.EscapeOutput.HeredocOutputNotEscaped -- All output is escaped.
 		echo <<<HEREDOC
 <div class="psc-wrap">
 	<div class="psc-nav-bar">
