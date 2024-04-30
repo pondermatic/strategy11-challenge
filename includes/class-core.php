@@ -61,17 +61,17 @@ class Core {
 		// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_register_style( handle: 'psc', src: "$assets_dir/css/psc.css", ver: self::VERSION );
 		wp_register_script(
-			handle: 'psc-shortcode',
-			src: "$assets_dir/js/psc-shortcode.js",
-			deps: [
+			'psc-shortcode',
+			"$assets_dir/js/psc-shortcode.js",
+			[
 				'jquery',
 				'wp-api',
 				'wp-date',
 				'wp-escape-html',
 				'wp-i18n',
 			],
-			ver: self::VERSION,
-			args: [
+			self::VERSION,
+			[
 				'in_footer' => false,
 			]
 		);
