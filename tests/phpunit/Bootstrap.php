@@ -3,7 +3,7 @@
  * Bootstrap class
  *
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace Pondermatic\Strategy11Challenge\PHPUnit;

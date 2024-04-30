@@ -3,7 +3,7 @@
  * Plugin Name:          Pondermatic Strategy11 Challenge
  * Plugin URI:           https://github.com/pondermatic/strategy11-challenge
  * Description:          Adds a WordPress endpoint to return data from a Strategy11 challenge API.
- * Version:              1.0.0
+ * Version:              1.0.1
  * Requires at least:    6.3
  * Requires PHP:         8.1
  * Author:               Pondermatic

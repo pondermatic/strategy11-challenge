@@ -3,7 +3,7 @@
  * The core class for this plugin.
  *
  * @since   1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace Pondermatic\Strategy11Challenge;
@@ -19,7 +19,7 @@ class Core {
 
 	const ROUTE_NAMESPACE = 'pondermatic-strategy11/v1';
 
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	 * An instance of the Challenge_API.
