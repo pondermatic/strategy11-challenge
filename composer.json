@@ -23,6 +23,7 @@
       "!/vendor/composer/",
       "/vendor/composer/installed.*",
       "/vendor/composer/LICENSE",
+      "!/vendor/opis/",
       "/.gitignore",
       "/composer.*",
       "/phpcs.xml",
